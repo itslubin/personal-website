@@ -101,11 +101,7 @@ function Article({ article }) {
       <Card.Description>{article.description}</Card.Description>
       <Card.Cta>
         {
-          article.external ? (
-            article.href.indexOf('medium') !== -1 ? (
-              'Read Article on Medium'
-            ) : 'Read External Article'
-          ) : 'Read Article'
+          article.external ? 'Read External Article' : 'Read Article'
         }
       </Card.Cta>
     </Card>
