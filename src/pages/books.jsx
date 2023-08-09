@@ -54,7 +54,7 @@ export default function Uses() {
               - They believe that companies have an obligation to make work more meaningful beyond just enhancing shareholder returns, focusing on a social purpose and impacting positively on the world
             </Book>
             <Book title="Hit Refresh by Satya Nadella">
-              - The root of Microsoft was to democratize computing, making it available to everyone. Our initial mission was: "A computer on every desk and in every home." <br />
+              - The root of Microsoft was to democratize computing, making it available to everyone. Our initial mission was: &quot;A computer on every desk and in every home.&quot; <br />
               - An empathetic leader should be out in the world, getting to know people where they live, and seeing how the technology we create impacts their daily activities <br />
               - The fact that governments do not encourage the use of technologies implies that there is still a trend of increasing inequality between the rich and the poor <br />
               - Sum(Education + Innovation) x Intensity of technology use = economic growth <br />
