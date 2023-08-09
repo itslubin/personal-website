@@ -251,7 +251,7 @@ export default function Home({ articles }) {
         </title>
         <meta
           name="description"
-          content="I'm Lubin, a builder at heart who loves to talk about new technologies and discover new markets. I'm currently interested in Artificial Intelligence, blockchain and filming videos."
+          content="I&apos;m Lubin, a builder at heart who loves to talk about new technologies and discover new markets. I&apos;m currently interested in Artificial Intelligence, blockchain and filming videos."
         />
       </Head>
       <Container className="mt-9">
@@ -275,7 +275,7 @@ export default function Home({ articles }) {
           In my free time, I like to reinvent designs and app features, as well as exploring Sci-Fi 🧪 concepts.
           </p>
           <p className="mt-2 text-base text-zinc-600 text-lg dark:text-zinc-300">
-            If you’re interested, <a className='text-underline text-blue-400' href="https://calendar.app.google/shokw71TwT2ay1BU9">let&apos;s chat</a>.
+            If you&apos;re interested, <a className='text-underline text-blue-400' href="https://calendar.app.google/shokw71TwT2ay1BU9">let&apos;s chat</a>.
           </p>
           <p className="mt-2 text-base text-zinc-600 text-lg dark:text-zinc-300">
             lubinyee [at] gmail.com.
