@@ -37,7 +37,7 @@ export default function Uses() {
       </Head>
       <SimpleLayout
         title="I love reading books 📖. Here are some recommendations."
-        intro="I sometimes get asked about what books I read. I've read books about technology, literature, business, philosophy, and just living life. Here are a few."
+        intro="I sometimes get asked about what books I read. I&apos;ve read books about technology, literature, business, philosophy, and just living life. Here are a few."
       >
         <div className="space-y-20">
           <BooksSection title="Currently Reading">
@@ -49,8 +49,8 @@ export default function Uses() {
           <BooksSection title="Economy & Science">
             <Book title="Liderar sin molestar by Javier Moreno Zabala">
               - Not everyone is willing to work without a passion or without a clear understanding about what exactly they are contributing to society <br />
-              - Mark Zuckerberg (Meta's CEO) and Tim Cook (Apple's CEO) agree on the importance of having a personal purpose connected to the need to be part of an organization <br />
-              - Today's youth believe that companies prioritize profits over employee well-being, demanding a different leadership approach characterized by transparency, humility, responsibility, and an unprecedented ethical and personal background <br />
+              - Mark Zuckerberg (Meta&apos;s CEO) and Tim Cook (Apple&apos;s CEO) agree on the importance of having a personal purpose connected to the need to be part of an organization <br />
+              - Today&apos;s youth believe that companies prioritize profits over employee well-being, demanding a different leadership approach characterized by transparency, humility, responsibility, and an unprecedented ethical and personal background <br />
               - They believe that companies have an obligation to make work more meaningful beyond just enhancing shareholder returns, focusing on a social purpose and impacting positively on the world
             </Book>
             <Book title="Hit Refresh by Satya Nadella">
@@ -58,12 +58,12 @@ export default function Uses() {
               - An empathetic leader should be out in the world, getting to know people where they live, and seeing how the technology we create impacts their daily activities <br />
               - The fact that governments do not encourage the use of technologies implies that there is still a trend of increasing inequality between the rich and the poor <br />
               - Sum(Education + Innovation) x Intensity of technology use = economic growth <br />
-              - You don't have to reinvent the wheel; societies that quickly adopt new tools are more likely to be more productive
+              - You don&apos;t have to reinvent the wheel; societies that quickly adopt new tools are more likely to be more productive
             </Book>
             <Book title="Rich Dad Poor Dad by Robert T. Kiyosaki">
               - A job is essentially a short-term solution to a long-term problem <br />
               - Due to desire and fear, nearly everyone spends their life chasing a paycheck, salary increases, and secure jobs <br />
-              - Learn to use your emotions for thinking, but don't think with them <br />
+              - Learn to use your emotions for thinking, but don&apos;t think with them <br />
               - The rich acquire assets, while the poor and middle class acquire liabilities they consider assets 
             </Book>
             <Book title="Big data by Walter Sosa Escudero">
