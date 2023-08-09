@@ -32,9 +32,9 @@ yarn-error.log*
 .vercel
 
 # pages
-articles/thank-you.jsx
-articles/research.jsx
-articles/example.jsx
-articles/quotes.jsx
-articles/titles.jsx
-articles/images.jsx
+src/pages/thank-you.jsx
+src/pages/research.jsx
+src/pages/articles/example.jsx
+src/pages/articles/quotes.jsx
+src/pages/articles/titles.jsx
+src/pages/articles/images.jsx
