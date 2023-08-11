@@ -37,7 +37,4 @@ yarn-error.log*
 # pages
 src/pages/thank-you.jsx
 src/pages/research.jsx
-src/pages/articles/example.jsx
-src/pages/articles/quotes.jsx
-src/pages/articles/titles.jsx
-src/pages/articles/images.jsx
+src/pages/articles/tips.mdx
