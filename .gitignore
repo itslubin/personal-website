@@ -37,4 +37,3 @@ yarn-error.log*
 # pages
 src/pages/thank-you.jsx
 src/pages/research.jsx
-src/pages/articles/tips.mdx

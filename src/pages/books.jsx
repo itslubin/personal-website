@@ -66,17 +66,33 @@ export default function Uses() {
               - Learn to use your emotions for thinking, but don&apos;t think with them <br />
               - The rich acquire assets, while the poor and middle class acquire liabilities they consider assets 
             </Book>
+            <Book title="Design patterns by Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides">
+            </Book>
             <Book title="Big data by Walter Sosa Escudero">
             </Book>
             <Book title="Tiempo de reconstruirte by Javier Regueira">
             </Book>
           </BooksSection>
-          <BooksSection title="Life">
+          <BooksSection title="Philosophy & Life">
             <Book title="Art of War by Sun Tzu">
+              - The greatest victory is that which requires no battle <br />
+              - Appear weak when you are strong, and strong when you are weak <br />
+              - A wise ruler does not reward people for skill in killing, but for skill in bringing peace <br />
+              - If you know the enemy and know yourself, you need not fear the result of a hundred battles <br />
+              - There is no instance of a nation benefiting from prolonged warfare <br />
             </Book>
             <Book title="Silence: In the Age of Noise by Erling Kagge">
+              - In the quiet, you can find out who you are and what you should do <br />
+              - I think silence is like a vitamin. Just as we need vitamin D to get through the dark winter, we need silence to understand what&apos;s going on around us <br />
+              - Walking is an antidote to the speed of modern life; it&apos;s the permission to slow down, to think, and to appreciate <br />
+              - True freedom is not the freedom to do anything you want. It is the freedom to be able to deal with anything you need <br />
             </Book>
             <Book title="Steve Jobs by Walter Isaacson">
+              - Your work is going to fill a large part of your life, and the only way to be truly satisfied is to do what you believe is great work. And the only way to do great work is to love what you do <br />
+              - Innovation distinguishes between a leader and a follower <br />
+              - The people who are crazy enough to think they can change the world are the ones who do <br />
+              - Remembering that you are going to die is the best way I know to avoid the trap of thinking you have something to lose. You are already naked. There is no reason not to follow your heart <br />
+              - The people who built Silicon Valley were engineers. They learned business, they learned a lot of different things, but they had a real belief that humans, if they worked hard with other creative, smart people, could solve most of humankind&apos;s problems <br />
             </Book>
           </BooksSection>
           <BooksSection title="Literature">
