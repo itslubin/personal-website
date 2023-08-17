@@ -37,3 +37,5 @@ yarn-error.log*
 # pages
 src/pages/thank-you.jsx
 src/pages/research.jsx
+src/pages/articles/aitools.mdx
+src/pages/articles/learncoding.mdx

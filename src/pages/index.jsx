@@ -257,7 +257,7 @@ export default function Home({ articles }) {
       <Container className="mt-9">
         <div className="max-w-7xl">
           <h1 className="text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl">
-            Hey 👋, I&apos;m Lubin.
+            Hey 👋🏻, I&apos;m Lubin.
           </h1>
           <h1 className="text-4xl font-bold tracking-tight text-zinc-800 mt-2 dark:text-zinc-100 sm:text-5xl">
             I build and talk about cool stuff.
