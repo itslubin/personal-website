@@ -12,11 +12,11 @@ import {
   LinkedInIcon,
 } from '@/components/SocialIcons'
 import image1 from '@/images/photos/image-1.jpg'
-import image2 from '@/images/photos/image-2.png'
+import image2 from '@/images/photos/image-2.jpg'
 import image3 from '@/images/photos/image-3.jpg'
 import image4 from '@/images/photos/image-4.jpg'
 import image5 from '@/images/photos/image-5.jpg'
-import image6 from '@/images/photos/image-6.jpg'
+import image6 from '@/images/photos/image-6.png'
 import image7 from '@/images/photos/image-7.jpg'
 import image8 from '@/images/photos/image-8.jpg'
 import logoYouTube from '@/images/logos/youtube.svg'
@@ -209,7 +209,7 @@ function Resume() {
           </li>
         ))}
       </ol>
-      <div onClick={() => { window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank') }}>
+      <div onClick={() => { window.open('/resume.pdf', '_blank') }}>
         <Button variant="secondary" className="group mt-6 w-full">
           Download Resume
           <ArrowDownIcon className="h-4 w-4 stroke-zinc-400 transition group-active:stroke-zinc-600 dark:group-hover:stroke-zinc-50 dark:group-active:stroke-zinc-50" />
