@@ -152,7 +152,7 @@ function Resume() {
   let resume = [
     {
       company: 'ITI',
-      title: 'R&D Software Engineer Intern',
+      title: 'R&D Software Engineer',
       logo: logoITI,
       start: 'June 2023',
       end: 'August 2023',
