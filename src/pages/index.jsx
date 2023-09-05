@@ -12,11 +12,13 @@ import {
   LinkedInIcon,
 } from '@/components/SocialIcons'
 import image1 from '@/images/photos/image-1.jpg'
-import image2 from '@/images/photos/image-2.jpg'
+import image2 from '@/images/photos/image-2.png'
 import image3 from '@/images/photos/image-3.jpg'
 import image4 from '@/images/photos/image-4.jpg'
 import image5 from '@/images/photos/image-5.jpg'
 import image6 from '@/images/photos/image-6.jpg'
+import image7 from '@/images/photos/image-7.jpg'
+import image8 from '@/images/photos/image-8.jpg'
 import logoYouTube from '@/images/logos/youtube.svg'
 import logoITI from '@/images/logos/iti.svg'
 import { generateRssFeed } from '@/lib/generateRssFeed'
@@ -150,7 +152,7 @@ function Resume() {
   let resume = [
     {
       company: 'ITI',
-      title: 'AI Software Engineer',
+      title: 'R&D Software Engineer Intern',
       logo: logoITI,
       start: 'June 2023',
       end: 'August 2023',
@@ -222,7 +224,7 @@ function Photos() {
   return (
     <div className="mt-16 sm:mt-20">
       <div className="-my-4 flex px-4 sm:px-24 justify-start gap-5 overflow-x-scroll scrollbar-hide py-4 sm:gap-8">
-        {[image1, image2, image3, image4, image5, image6].map((image, imageIndex) => (
+        {[image1, image2, image3, image4, image5, image6, image7, image8].map((image, imageIndex) => (
           <div
             key={image.src}
             className={clsx(
@@ -266,7 +268,7 @@ export default function Home({ articles }) {
             I love building software 💻, exploring new markets 📈, and filming videos 📹.
           </p>
           <p className="mt-2 text-base text-zinc-600 text-lg dark:text-zinc-300">
-            I am a Content Creator on <a className='text-underline text-blue-400' href="https://www.youtube.com/channel/UC1bZVTXPzbVF-Tmksskr7JA">YouTube</a> with over 14k subscribers and a former AI Software Engineer Intern at <a className='text-underline text-blue-400' href="https://www.iti.es/">ITI</a>.
+            I am a Content Creator on <a className='text-underline text-blue-400' href="https://www.youtube.com/channel/UC1bZVTXPzbVF-Tmksskr7JA">YouTube</a> with over 14k subscribers and a former R&D Software Engineer Intern focused in AI and Robotics.
           </p>
           <p className="mt-2 text-base text-zinc-600 text-lg dark:text-zinc-300">
           I&apos;m currently studying Computer Science and Artificial Intelligence at Complutense University of Madrid. I am passionate about cutting-edge technologies like Blockchain, AI and Robotics🤖.
