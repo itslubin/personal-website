@@ -1,0 +1,56 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+import ModelViewer from '@/components/ModelViewer';
+
+export const meta = {
+  author: 'Lubin',
+  date: '2023-09-10',
+  title: 'Will AI replace human jobs? (my experience)',
+  description:
+    'As some may know, I just created my online avatar, so I asked both a fellow human and AI model to create my online avatar, see who you think did best!',
+}
+
+export default (props) => <ArticleLayout meta={meta} {...props} />
+
+As some may know, I created an online avatar. I had this idea a long time ago, but never commited to do it, hence here I am presenting you the final results, which I think they turned out great. However, for the elaboration of the avatar, I had a little inconvinience, the thing was that my artist friend (who was going to create the avatar) was still in exam period when I told her about this project, so she had to do it a month afterwards.
+Hence, I had the idea to why not execute the same project idea with the AI? I searched a bit about different types of AI generators like DALLE 2 or DaVinci AI, but I ended up with MidJourney haha. Here is the comparison between the AI work and the human work.
+
+
+## Avatar created by human (aka: my friend)
+
+For this, the artist took about **a week** making this art piece, she first had to draw the avatar in 3 different perspectives (also known as a turn-around) as shown below for the later 3D rendering:
+
+<img src="/images/avatar_template.jpg" width="700px" alt="Image Description" />
+
+Afterwards, she took the images as reference into Blender and created this amazing 3D avatar!
+
+<img src="/images/avatar.gif" width="300px" alt="Image Description" />
+
+PS: Also, during this process I had to give some guidance for how I wanted the final result to look like, which didn&apos;t take a lot of time due to the lack of complexity of this project, but for bigger art projects it might take some time for client-artist sessions.
+
+## Avatar created by AI 
+
+I created this AI avatar with Midjourney, which took me **2 days**. At first, I wanted to create a 3D model directly in the style of Pixar, but things didn&apos;t turn out really well as it created some kind of caucasian-ish version of myself, which wasn&apos;t really pleasant 😂.
+
+<img src="/images/pixar.png" width="400px" alt="Image Description" />
+
+What I did was uploading a picture from myself and then in the prompt referencing the link of this photo to take it as a reference. In this case it did&apos;t work 😅.
+
+Therefore, I asked for a different style, and I thought about artists like Makoto Shinkai or Studio Ghibli, and the results started to turn out much better!
+
+<img src="/images/lubin.png" width="400px" alt="Image Description" />
+
+This is the promt that I used to create these images:
+
+```
+prompt: https://link_to_picture chinese male in Satoshi Kon style --iw 1.4 --ar 3:4 --s 250 --niji 5 --style cute
+```
+
+## Lessons Learned
+
+As for the human project, I spent 1 week and 20€ for the turn-around template and the 3D model, but I did as little work as sending a few messages to my friend. Meanwhile, for the AI project, I spent 10$ and 2 days to create a 2D image (this one of course involved myself in making the image).
+
+I think when you are making some sort of AI project, you need some kind of prior knowledge on how to use the technology or app before jumping into making it, otherwise you will waste your time, money and energy. Also, dealing with a machine currently isn&apos;t as easy as dealing with a real human yet, but it is possible to communicate corretly with the AI if you do your research.
+
+Overall, if you want to learn AI and cut down on expenses for your company or you are a freelancer, I strongly recommend using AI models like MidJourney. But if you want to ease your workload because you don&apos;t have the time to learn AI and do not mind to spend some more money, then you can hire either someone proficient in AI tools or real artists.
+
+I personally think the option about people proficient in AI are to arise.
