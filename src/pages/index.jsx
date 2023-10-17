@@ -271,7 +271,7 @@ export default function Home({ articles }) {
             I am a Content Creator on <a className='text-underline text-blue-400' href="https://www.youtube.com/channel/UC1bZVTXPzbVF-Tmksskr7JA">YouTube</a> with over 14k subscribers and a former R&D Software Engineer Intern focused in AI and Robotics.
           </p>
           <p className="mt-2 text-base text-zinc-600 text-lg dark:text-zinc-300">
-          I&apos;m currently studying Computer Science and Artificial Intelligence at Complutense University of Madrid. I am passionate about cutting-edge technologies like Blockchain, AI and Robotics🤖.
+          I&apos;m currently studying Computer Science at Complutense University of Madrid. I am passionate about cutting-edge technologies like Cloud, Blockchain and AI🤖.
           </p>
           <p className="mt-2 text-base text-zinc-600 text-lg dark:text-zinc-300">
           In my free time, I like innovating designs and app features, taking part in hackathons, and exploring Sci-Fi 🧪 concepts.
