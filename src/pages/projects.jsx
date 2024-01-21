@@ -7,8 +7,16 @@ import celiaPreview from '@/images/photos/celia.png'
 import simulatorPreview from '@/images/photos/simulator.jpg'
 import pizzaPreview from '@/images/photos/pizza.jpg'
 import pvszPreview from '@/images/photos/pvsz.png'
+import stocksPreview from '@/images/photos/stocks.png'
 
 const projects = [
+  {
+    name: 'Stocks Analytics',
+    description:
+      'Our tool will enable you to have a quick insight of the current stock market. Our database has currently covered the stock market in the US, China and India. You will be able to see which stocks have grown the most or how volatile the stock is either historically or by a specific year. As a plus, you will be able to check which years were worth investing and which were not.',
+    link: { href: 'https://itslubin.github.io/CLO-Project-website/', label: 'Go to Website' },
+    preview: stocksPreview,
+  },
   {
     name: 'CE.LIA Open Source Project',
     description:

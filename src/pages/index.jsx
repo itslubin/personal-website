@@ -268,7 +268,7 @@ export default function Home({ articles }) {
             I love building software 💻, exploring new markets 📈, and filming videos 📹.
           </p>
           <p className="mt-2 text-base text-zinc-600 text-lg dark:text-zinc-300">
-            I am a Content Creator on <a className='text-underline text-blue-400' href="https://www.youtube.com/channel/UC1bZVTXPzbVF-Tmksskr7JA">YouTube</a> with over 14k subscribers and a former R&D Software Engineer Intern focused in AI and Robotics.
+            I am a Content Creator on <a className='text-underline text-blue-400' href="https://www.youtube.com/channel/UC1bZVTXPzbVF-Tmksskr7JA">YouTube</a> with over 13k subscribers and a former R&D Software Engineer Intern focused in AI and Robotics.
           </p>
           <p className="mt-2 text-base text-zinc-600 text-lg dark:text-zinc-300">
           I&apos;m currently studying Computer Science at Complutense University of Madrid. I am passionate about cutting-edge technologies like Cloud, Blockchain and AI🤖.
