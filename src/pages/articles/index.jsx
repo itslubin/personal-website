@@ -52,11 +52,11 @@ export default function ArticlesIndex({ articles }) {
         <title>Articles - Lubin</title>
         <meta
           name="description"
-          content="I write ✍🏻 about software, emerging markets, and just about my life."
+          content="I write ✍🏻 about technology, emerging markets, and just about my life."
         />
       </Head>
       <SimpleLayout
-        title="I write ✍🏻 about software, emerging markets, and just about my life."
+        title="I write ✍🏻 about technology, emerging markets, and just about my life."
         intro="I'll be honest though. This is just a random blob of various ideas and thoughts 😂."
       >
         <div className="md:border-l md:border-zinc-100 md:pl-6 md:dark:border-zinc-700/40">

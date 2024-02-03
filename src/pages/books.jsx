@@ -41,8 +41,11 @@ export default function Uses() {
       >
         <div className="space-y-20">
           <BooksSection title="Currently Reading">
-            <Book title="Mental Knots by Bernardo Stamateas">
-              Interesting reading about dealing with personal problems and just life in general. Talks about problems that we might face in our day to day and tries to give a different approach to them helping me tackle things differently.
+            <Book title="Economix: how our economy works by Michael Goodwin">
+              It provides a comprehensive overview of economic history, theories, and concepts in an accessible and engaging format. It covers a wide range of topics, from the origins of economic thought to the Great Recession.
+            </Book>
+            <Book title="MEDDICC by Andy Whyte">
+            MEDDICC is a sales qualification framework used to assess and analyze opportunities in the context of business-to-business (B2B) sales. The acronym MEDDICC stands for Metrics, Economic Buyer, Decision Criteria, Decision Process, Identify Pain, Champion, and Competition.
             </Book>
           </BooksSection>
           <hr className='border-zinc-200 dark:border-zinc-600'/>
@@ -93,6 +96,9 @@ export default function Uses() {
               - The people who are crazy enough to think they can change the world are the ones who do <br />
               - Remembering that you are going to die is the best way I know to avoid the trap of thinking you have something to lose. You are already naked. There is no reason not to follow your heart <br />
               - The people who built Silicon Valley were engineers. They learned business, they learned a lot of different things, but they had a real belief that humans, if they worked hard with other creative, smart people, could solve most of humankind&apos;s problems <br />
+            </Book>
+            <Book title="Mental Knots by Bernardo Stamateas">
+              Interesting reading about dealing with personal problems and just life in general. Talks about problems that we might face in our day to day and tries to give a different approach to them helping me tackle things differently.
             </Book>
           </BooksSection>
           <BooksSection title="Literature">

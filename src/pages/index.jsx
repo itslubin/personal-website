@@ -21,6 +21,7 @@ import image7 from '@/images/photos/image-7.jpg'
 import image8 from '@/images/photos/image-8.jpg'
 import logoYouTube from '@/images/logos/youtube.svg'
 import logoITI from '@/images/logos/iti.svg'
+import logoLY from '@/images/logos/ly.svg'
 import { generateRssFeed } from '@/lib/generateRssFeed'
 import { getAllArticles } from '@/lib/getAllArticles'
 import { formatDate } from '@/lib/formatDate'
@@ -158,6 +159,13 @@ function Resume() {
       end: 'August 2023',
     },
     {
+      company: 'Luwen Ye SL',
+      title: 'Secretary',
+      logo: logoLY,
+      start: 'March 2020',
+      end: 'July 2021',
+    },
+    {
       company: 'YouTube',
       title: 'Content Creator',
       logo: logoYouTube,
@@ -271,7 +279,7 @@ export default function Home({ articles }) {
             I am a Content Creator on <a className='text-underline text-blue-400' href="https://www.youtube.com/channel/UC1bZVTXPzbVF-Tmksskr7JA">YouTube</a> with over 13k subscribers and a former R&D Software Engineer Intern focused in AI and Robotics.
           </p>
           <p className="mt-2 text-base text-zinc-600 text-lg dark:text-zinc-300">
-          I&apos;m currently studying Computer Science at Complutense University of Madrid. I am passionate about cutting-edge technologies like Cloud, Blockchain and AI🤖.
+          I&apos;m currently studying Computer Science at Complutense University of Madrid. I am passionate about cutting-edge technologies like Cloud, Big Data and AI 🤖.
           </p>
           <p className="mt-2 text-base text-zinc-600 text-lg dark:text-zinc-300">
           In my free time, I like innovating designs and app features, taking part in hackathons, and exploring Sci-Fi 🧪 concepts.
