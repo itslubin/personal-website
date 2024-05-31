@@ -16,12 +16,13 @@ import image2 from '@/images/photos/image-2.jpg'
 import image3 from '@/images/photos/image-3.jpg'
 import image4 from '@/images/photos/image-4.jpg'
 import image5 from '@/images/photos/image-5.jpg'
-import image6 from '@/images/photos/image-6.png'
-import image7 from '@/images/photos/image-7.jpg'
+import image6 from '@/images/photos/image-6.jpg'
+import image7 from '@/images/photos/image-7.png'
 import image8 from '@/images/photos/image-8.jpg'
 import logoYouTube from '@/images/logos/youtube.svg'
 import logoITI from '@/images/logos/iti.svg'
 import logoLY from '@/images/logos/ly.svg'
+import logoItestra from '@/images/logos/Itestra.svg'
 import { generateRssFeed } from '@/lib/generateRssFeed'
 import { getAllArticles } from '@/lib/getAllArticles'
 import { formatDate } from '@/lib/formatDate'
@@ -152,8 +153,15 @@ function Resume() {
   const router = useRouter()
   let resume = [
     {
+      company: 'Itestra',
+      title: 'Software Engineer Intern',
+      logo: logoItestra,
+      start: 'June 2024',
+      end: 'August 2024',
+    },
+    {
       company: 'ITI',
-      title: 'R&D Software Engineer',
+      title: 'R&D Software Engineer Intern',
       logo: logoITI,
       start: 'June 2023',
       end: 'August 2023',
@@ -174,7 +182,7 @@ function Resume() {
         label: 'Present',
         dateTime: new Date().getFullYear(),
       },
-    },
+    }
   ]
 
   return (
@@ -276,14 +284,12 @@ export default function Home({ articles }) {
             I love building software 💻, exploring new markets 📈, and filming videos 📹.
           </p>
           <p className="mt-2 text-base text-zinc-600 text-lg dark:text-zinc-300">
-            I am a Content Creator on <a className='text-underline text-blue-400' href="https://www.youtube.com/channel/UC1bZVTXPzbVF-Tmksskr7JA">YouTube</a> with over 13k subscribers and a former R&D Software Engineer Intern focused in AI and Robotics.
+            I am a Tech Content Creator on <a className='text-underline text-blue-400' href="https://www.youtube.com/channel/UC1bZVTXPzbVF-Tmksskr7JA">YouTube</a> with over 13k subscribers and a a current Software Engineer Intern at Itestra.
           </p>
           <p className="mt-2 text-base text-zinc-600 text-lg dark:text-zinc-300">
-          I&apos;m currently studying Computer Science at Complutense University of Madrid. I am passionate about cutting-edge technologies like Cloud, Big Data and AI 🤖.
-          </p>
+          I&apos;m a SBC (Spanish Born Chinese) 🥠 studying Computer Science at UCM. I’m genuinely interested in Software Development, Digital Transformation and technologies like GPT, Stable Diffusion, Machine Learning and Data Analysis. </p>
           <p className="mt-2 text-base text-zinc-600 text-lg dark:text-zinc-300">
-          In my free time, I like innovating designs and app features, taking part in hackathons, and exploring Sci-Fi 🧪 concepts.
-          </p>
+          In my free time, I like taking part in hackathons, innovating designs and app features, and exploring Sci-Fi 🧪 concepts.</p>
           <p className="mt-2 text-base text-zinc-600 text-lg dark:text-zinc-300">
             If you&apos;re interested, <a className='text-underline text-blue-400' href="https://calendar.app.google/shokw71TwT2ay1BU9">let&apos;s chat</a>.
           </p>
