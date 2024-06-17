@@ -157,21 +157,10 @@ function Resume() {
       title: 'Software Engineer Intern',
       logo: logoItestra,
       start: 'June 2024',
-      end: 'August 2024',
-    },
-    {
-      company: 'ITI',
-      title: 'R&D Software Engineer Intern',
-      logo: logoITI,
-      start: 'June 2023',
-      end: 'August 2023',
-    },
-    {
-      company: 'Luwen Ye SL',
-      title: 'Secretary',
-      logo: logoLY,
-      start: 'March 2020',
-      end: 'July 2021',
+      end: {
+        label: 'Present',
+        dateTime: new Date().getFullYear(),
+      }
     },
     {
       company: 'YouTube',
@@ -182,7 +171,21 @@ function Resume() {
         label: 'Present',
         dateTime: new Date().getFullYear(),
       },
-    }
+    },
+    {
+      company: 'ITI',
+      title: 'R&D Software Engineer Intern',
+      logo: logoITI,
+      start: 'June 2023',
+      end: 'August 2023',
+    },
+    {
+      company: 'Luwen Ye SL',
+      title: 'Business Intelligence Analyst',
+      logo: logoLY,
+      start: 'March 2020',
+      end: 'July 2021',
+    },
   ]
 
   return (
