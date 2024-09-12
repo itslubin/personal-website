@@ -8,8 +8,16 @@ import simulatorPreview from '@/images/photos/simulator.jpg'
 import pizzaPreview from '@/images/photos/pizza.jpg'
 import pvszPreview from '@/images/photos/pvsz.png'
 import stocksPreview from '@/images/photos/stocks.png'
+import solidityPreview from '@/images/photos/solidity.jpg'
 
 const projects = [
+  {
+    name: 'VoteX',
+    description:
+      'Introducing VoteX—the future of decentralized decision-making. Built on Ethereum and powered by Solidity, VoteX brings seamless, on-chain quadratic voting to DAOs. Whether funding proposals or signaling preferences, VoteX provides the tools to lead with fairness, security and transparency. Experience the next generation of governance—elevate your DAO with VoteX.',
+    link:  { href: 'https://github.com/itslubin/TBC', label: 'Go to Website' },
+    preview: solidityPreview,
+  },
   {
     name: 'Stocks Analytics',
     description:

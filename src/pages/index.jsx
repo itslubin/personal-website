@@ -12,7 +12,7 @@ import {
   LinkedInIcon,
 } from '@/components/SocialIcons'
 import image1 from '@/images/photos/image-1.jpg'
-import image2 from '@/images/photos/image-2.jpg'
+import image2 from '@/images/photos/image-2.jpeg'
 import image3 from '@/images/photos/image-3.jpg'
 import image4 from '@/images/photos/image-4.jpg'
 import image5 from '@/images/photos/image-5.jpg'
@@ -153,16 +153,6 @@ function Resume() {
   const router = useRouter()
   let resume = [
     {
-      company: 'Itestra',
-      title: 'Software Engineer Intern',
-      logo: logoItestra,
-      start: 'June 2024',
-      end: {
-        label: 'Present',
-        dateTime: new Date().getFullYear(),
-      }
-    },
-    {
       company: 'YouTube',
       title: 'Content Creator',
       logo: logoYouTube,
@@ -171,6 +161,13 @@ function Resume() {
         label: 'Present',
         dateTime: new Date().getFullYear(),
       },
+    },
+    {
+      company: 'Itestra',
+      title: 'Software Engineer Intern',
+      logo: logoItestra,
+      start: 'June 2024',
+      end: 'August 2024'
     },
     {
       company: 'ITI',
@@ -287,14 +284,14 @@ export default function Home({ articles }) {
             I love building software 💻, exploring new markets 📈, and filming videos 📹.
           </p>
           <p className="mt-2 text-base text-zinc-600 text-lg dark:text-zinc-300">
-            I am a Tech Content Creator on <a className='text-underline text-blue-400' href="https://www.youtube.com/channel/UC1bZVTXPzbVF-Tmksskr7JA">YouTube</a> with over 13k subscribers and a a current Software Engineer Intern at Itestra.
+            I am a Tech Content Creator on <a className='text-underline text-blue-400' href="https://www.youtube.com/channel/UC1bZVTXPzbVF-Tmksskr7JA">YouTube</a> with over 13k subscribers and a Software Engineer by heart ❤️.
           </p>
           <p className="mt-2 text-base text-zinc-600 text-lg dark:text-zinc-300">
-          I&apos;m a SBC (Spanish Born Chinese) 🥠 studying Computer Science at UCM. I’m genuinely interested in Software Development, Digital Transformation and technologies like GPT, Stable Diffusion, Machine Learning and Data Analysis. </p>
+          I&apos;m a SBC (Spanish Born Chinese) 🥠 studying Computer Science at UCM. I&apos;m genuinely interested in Software Development, Digital Transformation and cutting-edge technologies like GPT, Stable Diffusion, Machine Learning and Data Analysis. </p>
           <p className="mt-2 text-base text-zinc-600 text-lg dark:text-zinc-300">
-          In my free time, I like taking part in hackathons, innovating designs and app features, and exploring Sci-Fi 🧪 concepts.</p>
+          In my free time, I love taking part in hackathons, innovating app features, and exploring Sci-Fi 🧪 concepts.</p>
           <p className="mt-2 text-base text-zinc-600 text-lg dark:text-zinc-300">
-            If you&apos;re interested, <a className='text-underline text-blue-400' href="https://calendar.app.google/shokw71TwT2ay1BU9">let&apos;s chat</a>.
+            If you&apos;re interested, let&apos;s have a ☕️ <a className='text-underline text-blue-400' href="https://calendar.app.google/shokw71TwT2ay1BU9"> chat</a>!
           </p>
           <p className="mt-2 text-base text-zinc-600 text-lg dark:text-zinc-300">
             lubinyee [at] gmail.com.
