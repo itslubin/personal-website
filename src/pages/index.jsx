@@ -269,7 +269,7 @@ export default function Home({ articles }) {
         </title>
         <meta
           name="description"
-          content="I&apos;m Lubin, a builder at heart who loves to talk about new technologies and discover new markets. I&apos;m currently interested in Artificial Intelligence, blockchain and filming videos."
+          content="I&apos;m Lubin, a SWE at heart who loves to talk about new technologies and random stuff. I&apos;m currently interested in Software Development and filming videos."
         />
       </Head>
       <Container className="mt-9">
@@ -284,25 +284,17 @@ export default function Home({ articles }) {
             I love building software 💻, exploring new markets 📈, and filming videos 📹.
           </p>
           <p className="mt-2 text-base text-zinc-600 text-lg dark:text-zinc-300">
-            I am a Tech Content Creator on <a className='text-underline text-blue-400' href="https://www.youtube.com/channel/UC1bZVTXPzbVF-Tmksskr7JA">YouTube</a> with over 13k subscribers and a Software Engineer by heart ❤️.
+            I am a Content Creator on <a className='text-underline text-blue-400' href="https://www.youtube.com/channel/UC1bZVTXPzbVF-Tmksskr7JA">YouTube</a> with over 13k subscribers and a Software Engineer by heart ❤️.
           </p>
           <p className="mt-2 text-base text-zinc-600 text-lg dark:text-zinc-300">
-          I&apos;m a SBC (Spanish Born Chinese) 🥠 studying Computer Science at UCM. I&apos;m genuinely interested in Software Development, Digital Transformation and cutting-edge technologies like GPT, Stable Diffusion, Machine Learning and Data Analysis. </p>
+          I&apos;m genuinely interested in Software Development, Digital Transformation, Machine Learning and Data Analysis. </p>
           <p className="mt-2 text-base text-zinc-600 text-lg dark:text-zinc-300">
           In my free time, I love taking part in hackathons, innovating app features, and exploring Sci-Fi 🧪 concepts.</p>
           <p className="mt-2 text-base text-zinc-600 text-lg dark:text-zinc-300">
-            If you&apos;re interested, let&apos;s have a ☕️ <a className='text-underline text-blue-400' href="https://calendar.app.google/shokw71TwT2ay1BU9"> chat</a>!
+            If you&apos;re interested in a collab, let&apos;s ☕️ chat!
           </p>
-          <p className="mt-2 text-base text-zinc-600 text-lg dark:text-zinc-300">
-            lubinyee [at] gmail.com.
-          </p>
-          <p></p>
+          <p className="mt-2 text-base text-zinc-600 text-lg dark:text-zinc-300">itslubin [at] icloud.com</p>
           <div className="mt-6 flex gap-6">
-            <SocialLink
-              href="https://twitter.com/itslubin"
-              aria-label="Follow on Twitter"
-              icon={TwitterIcon}
-            />
             <SocialLink
               href="https://github.com/itslubin"
               aria-label="Follow on GitHub"
