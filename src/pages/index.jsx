@@ -10,6 +10,7 @@ import {
   TwitterIcon,
   GitHubIcon,
   LinkedInIcon,
+  InstagramIcon,
 } from '@/components/SocialIcons'
 import image1 from '@/images/photos/image-1.jpg'
 import image2 from '@/images/photos/image-2.jpeg'
@@ -284,7 +285,7 @@ export default function Home({ articles }) {
             I love building software 💻, exploring new markets 📈, and filming videos 📹.
           </p>
           <p className="mt-2 text-base text-zinc-600 text-lg dark:text-zinc-300">
-            I am a Content Creator on <a className='text-underline text-blue-400' href="https://www.youtube.com/channel/UC1bZVTXPzbVF-Tmksskr7JA">YouTube</a> with over 13k subscribers and a Software Engineer by heart ❤️.
+            I am a Content Creator on <a className='text-underline text-blue-400' href="https://www.youtube.com/channel/UC1bZVTXPzbVF-Tmksskr7JA">YouTube</a> with over 14k subscribers and a Software Engineer by heart ❤️.
           </p>
           <p className="mt-2 text-base text-zinc-600 text-lg dark:text-zinc-300">
           I&apos;m genuinely interested in Software Development, Digital Transformation, Machine Learning and Data Analysis. </p>
@@ -295,6 +296,11 @@ export default function Home({ articles }) {
           </p>
           <p className="mt-2 text-base text-zinc-600 text-lg dark:text-zinc-300">itslubin [at] icloud.com</p>
           <div className="mt-6 flex gap-6">
+            <SocialLink
+              href="https://www.instagram.com/itslubin/"
+              aria-label="Follow on Twitter"
+              icon={InstagramIcon}
+            />
             <SocialLink
               href="https://github.com/itslubin"
               aria-label="Follow on GitHub"
