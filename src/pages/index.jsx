@@ -13,7 +13,7 @@ import {
   InstagramIcon,
 } from '@/components/SocialIcons'
 import image1 from '@/images/photos/image-1.jpg'
-import image2 from '@/images/photos/image-2.jpeg'
+import image2 from '@/images/photos/image-2.jpg'
 import image3 from '@/images/photos/image-3.jpg'
 import image4 from '@/images/photos/image-4.jpg'
 import image5 from '@/images/photos/image-5.jpg'
@@ -279,28 +279,24 @@ export default function Home({ articles }) {
             Hey 👋🏻, I&apos;m Lubin.
           </h1>
           <h1 className="text-4xl font-bold tracking-tight text-zinc-800 mt-2 dark:text-zinc-100 sm:text-5xl">
-            I build and talk about cool stuff.
+            I build and explore innovative tech.
           </h1>
           <p className="mt-10 text-base text-zinc-600 text-lg dark:text-zinc-300">
-            I love building software 💻, exploring new markets 📈, and filming videos 📹.
+            I love building software 💻, exploring new markets 📈, and creating content 📹.
           </p>
           <p className="mt-2 text-base text-zinc-600 text-lg dark:text-zinc-300">
-            I am a Content Creator on <a className='text-underline text-blue-400' href="https://www.youtube.com/channel/UC1bZVTXPzbVF-Tmksskr7JA">YouTube</a> with over 14k subscribers and a Software Engineer by heart ❤️.
+            I&apos;m a Software Engineer by heart ❤️ and a current MSc Computer Science student at UvA & VU 🇳🇱.
           </p>
           <p className="mt-2 text-base text-zinc-600 text-lg dark:text-zinc-300">
-          I&apos;m genuinely interested in Software Development, Digital Transformation, Machine Learning and Data Analysis. </p>
+          In my free time, I love taking part in hackathons, developing app features, and exploring Sci-Fi 🧪 concepts.</p>
           <p className="mt-2 text-base text-zinc-600 text-lg dark:text-zinc-300">
-          In my free time, I love taking part in hackathons, innovating app features, and exploring Sci-Fi 🧪 concepts.</p>
+            Also, I am a Content Creator on <a className='text-underline text-blue-400' href="https://www.youtube.com/channel/UC1bZVTXPzbVF-Tmksskr7JA">YouTube</a> with over 25k subscribers.
+          </p>
           <p className="mt-2 text-base text-zinc-600 text-lg dark:text-zinc-300">
-            If you&apos;re interested in a collab, let&apos;s ☕️ chat!
+            If you&apos;re interested, let&apos;s ☕️ chat!
           </p>
           <p className="mt-2 text-base text-zinc-600 text-lg dark:text-zinc-300">itslubin [at] icloud.com</p>
           <div className="mt-6 flex gap-6">
-            <SocialLink
-              href="https://www.instagram.com/itslubin/"
-              aria-label="Follow on Twitter"
-              icon={InstagramIcon}
-            />
             <SocialLink
               href="https://github.com/itslubin"
               aria-label="Follow on GitHub"
