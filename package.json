@@ -35,5 +35,10 @@
     "eslint-config-next": "12.2.5",
     "prettier": "^2.7.1",
     "prettier-plugin-tailwindcss": "^0.1.11"
+  },
+  "engines": {
+    "node": "22.x",
+    "npm": ">=10"
   }
+
 }
