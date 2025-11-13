@@ -157,7 +157,7 @@ function Resume() {
       company: 'YouTube',
       title: 'Content Creator',
       logo: logoYouTube,
-      start: '2020',
+      start: '2025',
       end: {
         label: 'Present',
         dateTime: new Date().getFullYear(),
