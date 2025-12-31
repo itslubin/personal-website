@@ -9,8 +9,24 @@ import pizzaPreview from '@/images/photos/pizza.jpg'
 import pvszPreview from '@/images/photos/pvsz.png'
 import stocksPreview from '@/images/photos/stocks.png'
 import solidityPreview from '@/images/photos/solidity.jpg'
+import challengeEarthPreview from '@/images/photos/challenge_earth.jpg'
+import augmentaPreview from '@/images/photos/augmenta.jpg'
 
 const projects = [
+  {
+    name: 'Augmenta - DigiEduHack Local Winner 🏆',
+    description:
+      'Augmenta is an AI-powered educational app for smart and augmented reality glasses to enhance classroom communication. It delivers real-time transcription, translation, concept highlighting, and digital note creation, reducing distractions and language barriers for students. It supports diverse learning needs, including hearing impairments and learning difficulties, enabling a personalized, inclusive, and scalable learning experience.',
+    link:  { href: 'https://youtu.be/Lq0rdN7t49M', label: 'Watch Demo' },
+    preview: augmentaPreview,
+  },
+  {
+    name: 'Challenge Earth - Nasa Space Apps Finalist 🚀',
+    description:
+      'Challenge Earth is a simulation game designed to teach high school students about the real-world complexities of balancing sustainability and economic growth, in line with the SDG 11 (Sustainable Cities and Communities) challenge. Integrated into lesson plans for Geography and Economy units, it provides students with a hands-on learning experience that goes beyond traditional classroom instruction.',
+    link:  { href: 'https://youtu.be/KYEHqg1gsqA', label: 'Watch Demo' },
+    preview: challengeEarthPreview,
+  },
   {
     name: 'VoteX',
     description:
