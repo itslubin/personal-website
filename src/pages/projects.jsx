@@ -14,23 +14,23 @@ import augmentaPreview from '@/images/photos/augmenta.jpg'
 
 const projects = [
   {
-    name: 'Augmenta - DigiEduHack Local Winner 🏆',
+    name: 'Augmenta (DigiEduHack Local Winner)',
     description:
-      'Augmenta is an AI-powered educational app for smart and augmented reality glasses to enhance classroom communication. It delivers real-time transcription, translation, concept highlighting, and digital note creation, reducing distractions and language barriers for students. It supports diverse learning needs, including hearing impairments and learning difficulties, enabling a personalized, inclusive, and scalable learning experience.',
+      'Augmenta is an AI-powered educational app for AR glasses to enhance classroom communication. It delivers real-time transcription, translation, concept highlighting, and digital note creation, while reducing language barriers for students. It supports diverse learning needs, including hearing impairments and learning difficulties, enabling a personalized and inclusive learning experience.',
     link:  { href: 'https://youtu.be/Lq0rdN7t49M', label: 'Watch Demo' },
     preview: augmentaPreview,
   },
   {
-    name: 'Challenge Earth - Nasa Space Apps Finalist 🚀',
+    name: 'Challenge Earth (Nasa Space Apps Finalist)',
     description:
-      'Challenge Earth is a simulation game designed to teach high school students about the real-world complexities of balancing sustainability and economic growth, in line with the SDG 11 (Sustainable Cities and Communities) challenge. Integrated into lesson plans for Geography and Economy units, it provides students with a hands-on learning experience that goes beyond traditional classroom instruction.',
+      'Challenge Earth is a simulation game designed to teach high school students about solving the real-world complexities of balancing sustainability and economic growth, in line with the SDG 11 (Sustainable Cities and Communities) challenge as part of Geography and Economy lesson plans.',
     link:  { href: 'https://youtu.be/KYEHqg1gsqA', label: 'Watch Demo' },
     preview: challengeEarthPreview,
   },
   {
     name: 'VoteX',
     description:
-      'Introducing VoteX—the future of decentralized decision-making. Built on Ethereum and powered by Solidity, VoteX brings seamless, on-chain quadratic voting to DAOs. Whether funding proposals or signaling preferences, VoteX provides the tools to lead with fairness, security and transparency. Experience the next generation of governance—elevate your DAO with VoteX.',
+      'VoteX brings seamless, on-chain quadratic voting to DAOs, built on Ethereum and powered by Solidity. Whether funding proposals or signaling preferences, VoteX provides the tools to lead with fairness, security and transparency. Experience the next generation of governance—elevate your DAO with VoteX.',
     link:  { href: 'https://github.com/itslubin/TBC', label: 'Go to Website' },
     preview: solidityPreview,
   },
@@ -89,12 +89,12 @@ export default function Projects() {
         <title>Projects - Lubin</title>
         <meta
           name="description"
-          content="Ideas are cheap. Building is everything 🏗️."
+          content="Ideas are cheap. Building is everything."
         />
       </Head>
       <SimpleLayout
-        title="Ideas are cheap. Building is everything 🏗️."
-        intro="I’ve worked on many projects from little projects for myself to large-scale open source projects. Here are a few that I&apos;m most proud of building."
+        title="Ideas are cheap. Building is everything."
+        intro="I’ve worked on different projects from little projects for myself to large-scale open source projects. Here are a few that I&apos;m most proud of building."
       >
         
         <ul

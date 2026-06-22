@@ -177,13 +177,6 @@ function Resume() {
       start: 'June 2023',
       end: 'August 2023',
     },
-    {
-      company: 'Luwen Ye SL',
-      title: 'Business Intelligence Analyst',
-      logo: logoLY,
-      start: 'March 2020',
-      end: 'July 2021',
-    },
   ]
 
   return (
@@ -276,24 +269,25 @@ export default function Home({ articles }) {
       <Container className="mt-9">
         <div className="max-w-7xl">
           <h1 className="text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl">
-            Hey 👋🏻, I&apos;m Lubin.
-          </h1>
-          <h1 className="text-4xl font-bold tracking-tight text-zinc-800 mt-2 dark:text-zinc-100 sm:text-5xl">
-            I build and explore innovative tech.
+            Hey! I&apos;m Lubin.
           </h1>
           <p className="mt-10 text-base text-zinc-600 text-lg dark:text-zinc-300">
-            I love building software 💻, exploring new markets 📈, and creating content 📹.
+            I&apos;m a Spanish Born Chinese (SBC) 🇪🇸🇨🇳 & Third Culture Kid.
           </p>
           <p className="mt-2 text-base text-zinc-600 text-lg dark:text-zinc-300">
-            I&apos;m a Software Engineer by heart ❤️ and a current MSc Computer Science student at UvA & VU 🇳🇱.
+            I love building software 💻, exploring emerging markets 📈, and creating content 📹.
           </p>
           <p className="mt-2 text-base text-zinc-600 text-lg dark:text-zinc-300">
-          In my free time, I love taking part in hackathons, developing app features, and exploring Sci-Fi 🧪 concepts.</p>
-          <p className="mt-2 text-base text-zinc-600 text-lg dark:text-zinc-300">
-            Also, I am a Content Creator on <a className='text-underline text-blue-400' href="https://www.youtube.com/channel/UC1bZVTXPzbVF-Tmksskr7JA">YouTube</a> with over 25k subscribers.
+            Currently, a MSc Computer Science student at UvA & VU 🇳🇱, and a Software Engineer by heart ❤️.
           </p>
           <p className="mt-2 text-base text-zinc-600 text-lg dark:text-zinc-300">
-            If you&apos;re interested, let&apos;s ☕️ chat!
+            Also, I&apos;m a Content Creator with 46k+ followers across <a className='text-underline text-blue-400' href="https://www.youtube.com/channel/UC1bZVTXPzbVF-Tmksskr7JA">YouTube</a>, Instagram & TikTok, where I share insights about Asian culture.
+          </p>
+          <p className="mt-2 text-base text-zinc-600 text-lg dark:text-zinc-300">
+            I like participating in hackathons and developing personal projects to sharpen my problem-solving and coding skills.
+          </p>
+          <p className="mt-2 text-base text-zinc-600 text-lg dark:text-zinc-300">
+            If you&apos;re working on something exciting, let&apos;s ☕️ chat!
           </p>
           <p className="mt-2 text-base text-zinc-600 text-lg dark:text-zinc-300">itslubin [at] icloud.com</p>
           <div className="mt-6 flex gap-6">

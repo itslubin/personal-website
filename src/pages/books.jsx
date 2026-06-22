@@ -32,12 +32,12 @@ export default function Uses() {
         <title>Books - Lubin</title>
         <meta
           name="description"
-          content="I love reading books 📖. Here are some thoughts on those reads."
+          content="I love reading. Here are some thoughts on those reads."
         />
       </Head>
       <SimpleLayout
-        title="I love reading books 📖. Here are some recommendations."
-        intro="I sometimes get asked about what books I read. I&apos;ve read books about technology, literature, business, philosophy, and just living life. Here are a few."
+        title="I love reading 📖"
+        intro="I&apos;ve read books about technology, literature, business, philosophy, and just living life. Here are a few."
       >
         <div className="space-y-20">
           <BooksSection title="Currently Reading">
