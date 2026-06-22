@@ -1,0 +1,164 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+
+export const meta = {
+  author: 'Lubin',
+  date: '2025-06-15',
+  title: 'AI I: Search, Heuristics, and Learning — Course Notes',
+  description:
+    'A walkthrough of the core ideas from my AI I course at UCM: state space search, uninformed vs. heuristic algorithms, adversarial search with Minimax, Q-learning, and genetic algorithms.',
+}
+
+export default (props) => <ArticleLayout meta={meta} {...props} />
+
+These are my notes from the Artificial Intelligence I course at the Universidad Complutense de Madrid. The course covered a wide arc — from classical search algorithms all the way to reinforcement learning and genetic algorithms. Here's how I think about the main ideas.
+
+## Two Paradigms of AI
+
+Before diving into algorithms, the course drew a clean line between two schools of thought:
+
+- **Symbolic AI** reasons deductively from explicit rules. You encode knowledge, and the system derives conclusions from it.
+- **Sub-symbolic AI** learns inductively from data. Neural networks and statistical models live here.
+
+Neither is strictly better — the right choice depends on the problem. The course covered both, starting from first principles.
+
+## Problem Representation
+
+Almost every AI problem can be cast as a **state space search**. You define:
+
+- An **initial state** and a set of all possible states
+- **Operators** that transform one state into another
+- A **goal test** to determine when you're done
+- A **path cost function** summing the cost of each step
+
+A state should only encode variable information. Fixed problem data lives outside the state, in the problem class itself.
+
+The distinction between **planning problems** (find the path) and **optimization problems** (find the best final configuration, path irrelevant) comes up constantly. Search algorithms handle the former; local search handles the latter.
+
+## Uninformed Search
+
+These algorithms explore the state space without any knowledge of how close a state is to the goal.
+
+### Breadth-First Search
+
+BFS explores level by level, using a FIFO queue as its frontier. It is **complete** and, when step costs are uniform, **optimal**. The price is memory: it stores the entire frontier.
+
+- Time: O(r^p) — r = branching factor, p = depth of shallowest solution
+- Space: O(r^p)
+
+### Uniform-Cost Search
+
+Expands the lowest-cost frontier node. This is BFS generalized to non-uniform costs. It is complete and optimal when all operator costs are ≥ 0.
+
+### Depth-First Search
+
+DFS uses a stack (LIFO). It is neither complete (can loop infinitely) nor optimal, but has excellent memory characteristics — O(r × m) where m is the maximum depth.
+
+### Iterative Deepening Search
+
+IDS runs depth-limited search repeatedly, incrementing the depth limit by one each time. It combines DFS's memory efficiency with BFS's completeness and optimality. For large state spaces with unknown solution depth, this is the preferred uninformed method.
+
+- Time: O(r^p)
+- Space: O(r × p)
+
+## Heuristic Search
+
+Heuristic search adds domain knowledge: a function **h(n)** that estimates the distance from state n to the nearest goal.
+
+Two key properties:
+- **Admissibility:** h(n) ≤ h*(n) — never overestimate.
+- **Consistency:** h(n) ≤ cost(n, n') + h(n') — the estimate doesn't jump by more than the actual step cost.
+
+Common distance heuristics for spatial problems:
+- **Manhattan distance** |x₂−x₁| + |y₂−y₁| — restricted to horizontal/vertical movement
+- **Euclidean distance** √((x₂−x₁)² + (y₂−y₁)²) — considers diagonals, less informed
+
+### Greedy Best-First Search
+
+Evaluates nodes by f(n) = h(n) alone. Fast but not complete and not optimal — it ignores actual path cost.
+
+### A\*
+
+A* uses f(n) = g(n) + h(n), where g(n) is the actual cost from start to n. It is **complete and optimally efficient**: no algorithm that uses the same heuristic information will expand fewer nodes. A* with tree search is optimal when h is admissible; with graph search, when h is consistent.
+
+## Adversarial Search: Minimax and Alpha-Beta
+
+Two-player zero-sum games (chess, checkers) call for a different approach. **Minimax** builds a game tree: MAX nodes take the maximum child value, MIN nodes take the minimum. It performs a depth-first traversal propagating values from the leaves upward.
+
+**Alpha-Beta pruning** cuts branches that can't affect the final decision:
+- At a MIN node: prune if a child value ≤ α (MAX's best guarantee)
+- At a MAX node: prune if a child value ≥ β (MIN's best guarantee)
+
+This can reduce the effective branching factor dramatically, making much deeper searches feasible.
+
+## Q-Learning
+
+Q-learning is a reinforcement learning algorithm modeled on a finite state machine. An agent executes actions, receives rewards, and updates a Q matrix (states × actions):
+
+```
+Q(s, a) ← (1 − α) · Q(s, a) + α · (r + γ · max Q(s', a'))
+```
+
+Parameters:
+- **α (learning rate):** close to 0 preserves prior knowledge; close to 1 adapts quickly
+- **γ (discount factor):** close to 0 values immediate rewards; close to 1 values long-term rewards
+- **ε (exploration rate):** balances trying new actions vs. exploiting the best known one
+
+The algorithm runs for a fixed number of **episodes** — each a full traversal of the environment until the goal — until the Q matrix stabilizes.
+
+## Local Search
+
+Local search doesn't track the path — only the current state matters. The goal is to maximize (or minimize) an evaluation function by moving to neighboring states.
+
+### Hill Climbing
+
+Moves to the best neighboring state at each step. Fast but prone to:
+- **Local optima** — no improving neighbor exists
+- **Plateaus** — all neighbors have equal value
+- **Ridges** — the topology funnels you into a dead end
+
+### Simulated Annealing
+
+Extends hill climbing by accepting worse states with some probability. Early on (high temperature) the algorithm explores freely; later (low temperature) it exploits what it's found. Common cooling schedules:
+
+- Exponential decay: T(k+1) = α × T(k)
+- Boltzmann: T(k) = T₀ / (1 + log(k))
+- Cauchy: T(k) = T₀ / (1 + k)
+
+## Genetic Algorithms
+
+Genetic algorithms maintain a **population** of candidate solutions encoded as **chromosomes**. Each generation:
+
+1. Evaluate **fitness** of each individual
+2. **Select** ~80% to reproduce (elitist, roulette, or tournament selection)
+3. Apply **crossover** (~70% probability) to produce offspring
+4. Apply **mutation** (below 10% probability) to maintain diversity
+5. Repeat until any individual meets the objective
+
+Key crossover variants:
+- **Single/two-point crossover:** split and swap chromosome segments
+- **PMX (permutation crossover):** copy a segment from parent 1, fill the rest from parent 2's ordering — avoids repeated genes, useful for combinatorial problems like 8-queens
+
+Genetic algorithms are applicable when no analytical solution exists and no guaranteed solution is known.
+
+## Knowledge-Based Systems
+
+KBS represent knowledge as rules and derive conclusions through inference. The core components are a **rule base**, an **inference engine**, and **working memory**.
+
+- **Forward chaining** (data-driven): start from known facts, fire applicable rules, derive new facts
+- **Backward chaining** (goal-driven): start from a goal, find rules that could prove it, recursively prove their conditions
+
+When multiple rules are applicable simultaneously, **conflict resolution** strategies pick which fires: refraction (each rule fires at most once with the same facts), specificity (more specific rules take precedence), heuristic priorities, or randomness.
+
+## Recommender Systems
+
+Evaluated with k-fold cross-validation. Key metrics:
+- **Precision** = |Recommended ∩ Relevant| / |Recommended|
+- **Recall** = |Recommended ∩ Relevant| / |Relevant|
+- **F-score** = 2 × P × R / (P + R)
+
+Approaches:
+- **Popularity-based:** no personalization
+- **Content-based filtering:** items similar to what the user previously liked (filter bubble risk)
+- **Collaborative filtering:** items liked by users with similar profiles
+
+**Lazy learning** (k-NN) stores all training cases and retrieves similar ones at query time. **Eager learning** builds an explicit model upfront.

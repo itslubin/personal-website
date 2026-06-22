@@ -1,0 +1,323 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+
+export const meta = {
+  author: 'Lubin',
+  date: '2025-08-25',
+  title: 'AI II: Machine Learning, NLP, and Knowledge Representation — Course Notes',
+  description:
+    'Notes from my AI II course at UCM: clustering, decision trees, neural networks, NLP with n-grams and TF-IDF, semantic networks, ontologies in OWL, and SPARQL queries.',
+}
+
+export default (props) => <ArticleLayout meta={meta} {...props} />
+
+These are my notes from the Artificial Intelligence II course at UCM. The course picks up where AI I left off — moving from search into machine learning, natural language processing, and knowledge representation. Here's the arc of ideas.
+
+## Supervised vs. Unsupervised Learning
+
+The fundamental split:
+
+- **Supervised learning:** examples come pre-labeled. The task is to discover classification rules. Data is an n×m matrix — n individuals, m features — with one output variable y.
+- **Unsupervised learning:** no labels. The system must discover structure on its own — either groupings among individuals (clustering) or structure among variables (dimensionality reduction).
+
+Learning algorithms are sensitive to how individuals are represented. The same data in a different feature space can produce very different results.
+
+---
+
+## Dimensionality Reduction
+
+When a problem involves many correlated variables, dimensionality reduction finds a smaller set of **p factors** that preserve most of the information. These factors are linear combinations of the original variables. The goal is to keep p much smaller than the original m.
+
+---
+
+## Clustering
+
+The objective: group n individuals into clusters such that within-cluster individuals are as similar as possible, and between-cluster individuals are as different as possible. Similarity is measured by distance.
+
+Three common distance metrics given individuals A and B with m features:
+
+- **Manhattan (L₁):** Σ |xAᵢ − xBᵢ| — all differences weighted equally
+- **Euclidean (L₂):** (Σ (xAᵢ − xBᵢ)²)^(1/2) — large differences penalized more
+- **Chebyshev (L∞):** max |xAᵢ − xBᵢ| — only the maximum difference matters
+
+Scale matters: always normalize before computing distances if features have different units.
+
+### Hierarchical Clustering
+
+Start with each individual as its own cluster. Iteratively merge the two closest clusters until one cluster remains. The linkage strategy determines "closest":
+
+- **Centroid linkage:** distance between cluster means
+- **Single linkage:** distance between the two closest points across clusters
+- **Complete linkage:** distance between the two farthest points (most typical)
+
+The result is a **dendrogram** — a tree diagram where the cut height determines the number of clusters. The **elbow diagram** (plotting within-cluster dispersion vs. number of clusters k) helps choose the cut point.
+
+### k-Means (Partition-Based)
+
+1. Initialize k centroids at random positions
+2. Assign each individual to the nearest centroid
+3. Update centroid positions to the mean of assigned individuals
+4. Repeat until centroids stop moving
+
+Results depend on initialization — different runs may produce different clusters. The **Dunn Index** (min inter-cluster distance / max intra-cluster distance, higher is better) and **Davies-Bouldin Index** (lower is better) quantify cluster quality.
+
+---
+
+## Supervised Learning
+
+When y is numeric: **regression**. When y is categorical: **classification**.
+
+### Error Metrics
+
+**Regression:**
+- MSE = (1/n) Σ (yᵢ − ŷᵢ)²
+- RMSE = √MSE — preferred because it's in the same units as y
+
+**Classification — confusion matrix:**
+
+|  | Observed positive | Observed negative |
+|---|---|---|
+| **Predicted positive** | TP | FP |
+| **Predicted negative** | FN | TN |
+
+- **Accuracy** = (TP + TN) / (TP + TN + FP + FN)
+- **Recall** = TP / (TP + FN) — coverage of positives
+- **Precision** = TP / (TP + FP) — accuracy of positive predictions
+- **F1** = 2 · (P · R) / (P + R)
+
+### Overfitting and Underfitting
+
+| | Training error | Test error |
+|---|---|---|
+| Underfitting | High | High |
+| Good fit | Low | Low |
+| Overfitting | Very low | High |
+
+A model that memorizes training data exactly will fail on new data (high variance). A model too simple to capture the pattern fails everywhere (high bias).
+
+### Validation Strategies
+
+**Simple validation:** 75% train, 25% test.
+
+**k-Fold cross-validation:**
+1. Divide data into k equal folds
+2. Train on k−1 folds, validate on the remaining fold
+3. Repeat k times, rotating the validation fold
+4. Report the mean validation error
+
+Typical k: 5 or 10. Use **stratification** — each fold should have the same class proportions as the full dataset.
+
+**Leave-One-Out (LOO):** k = n. Appropriate only for very small datasets.
+
+### k-Nearest Neighbours (k-NN)
+
+No model is built. At query time, retrieve the k most similar training examples and return:
+- Quantitative output: mean (or weighted mean) of k neighbors
+- Categorical output: majority class among k neighbors
+
+Small k → overfitting. Large k → over-generalization. Cross-validation selects the optimal k.
+
+### Decision Trees
+
+Built recursively by selecting the attribute that maximally reduces **entropy** at each node.
+
+Entropy of a node N:
+```
+E(N) = −Σᵢ P(sᵢ) log₂ P(sᵢ)
+```
+
+The **information gain** of splitting on attribute A is E(N) − E(N|A), where E(N|A) is the weighted average entropy of the child nodes. The attribute with the highest information gain is chosen.
+
+**Termination:** all examples at the node have the same class (entropy = 0), or no attributes remain.
+
+Decision trees always risk overfitting. Two pruning strategies:
+
+1. **Error-reduction pruning:** use a separate validation set; prune a subtree if the parent node alone makes fewer errors than the subtree's leaves combined
+2. **Pessimistic pruning:** use the training set but add a penalty r to each leaf's error count; can prune without extra data, but doesn't account for leaf size
+
+### Neural Networks
+
+A **multilayer perceptron (MLP)** has:
+- **Input layer:** one neuron per feature
+- **Hidden layers:** model non-linear relationships
+- **Output layer:** produces predictions
+
+**Activation functions** by use case:
+- Sigmoid: output probability, range [0, 1]
+- Tanh: range [−1, 1]
+- ReLU: non-negative outputs, widely used in deep learning
+- Softmax: multiclass output, probabilities summing to 1
+- Identity: unbounded regression output
+
+**Training with backpropagation:**
+
+1. **Forward pass:** compute the network output and the error
+2. **Backward pass:** compute the gradient of the error with respect to weights; adjust weights to reduce error
+
+The update rule: `p ← p − α∇E`, where α is the learning rate. One full pass over training data is an **epoch**.
+
+**L2 regularization** penalizes large weights, improving generalization. A universal approximation result: a single hidden layer with enough neurons can represent any function that multiple hidden layers can — additional layers provide higher-level feature representations.
+
+---
+
+## Natural Language Processing
+
+NLP sits at the intersection of AI and linguistics. The goal is to build systems that interpret or generate text.
+
+Because text is sequential, the probability of a word depends on all previous words. The **chain rule** gives:
+
+```
+P(w₁, ..., wₙ) = P(w₁) · P(w₂|w₁) · P(w₃|w₁,w₂) · ... · P(wₙ|w₁,...,wₙ₋₁)
+```
+
+The **Markov hypothesis** makes this tractable: only the last n−1 words matter.
+
+### N-gram Language Models
+
+- **Bigram (n=2):** P(wₙ|wₙ₋₁)
+- **Trigram (n=3):** P(wₙ|wₙ₋₁, wₙ₋₂)
+
+Maximum likelihood estimation: P(wₙ|wₙ₋₁) = freq(wₙ₋₁, wₙ) / freq(wₙ₋₁)
+
+**Key problem:** any n-gram unseen in training gets probability 0. One zero makes the entire sentence probability 0.
+
+**Smoothing solutions:**
+
+*Laplace smoothing:* add virtual observations to every possible n-gram:
+```
+P(B|A) = (freq(A,B) + t) / (freq(A) + t × m)
+```
+
+*Linear interpolation:* blend conditional and unconditional probabilities:
+```
+P_int(w₂|w₁) = α · P(w₂|w₁) + (1−α) · P(w₂)
+```
+When few bigrams with w₁ exist, use low α (fall back to unconditional). When many exist, use high α (trust the conditional).
+
+### Information Retrieval and Bag of Words
+
+IR finds documents relevant to a query through four steps: transform documents into representations, transform the query, compute similarity, return ranked results.
+
+**Text normalization:** lowercasing, stemming (extracting the word root), removing stop words.
+
+**Bag of Words** represents documents as multisets of words, ignoring order. Vectorization options:
+1. Presence/absence — binary
+2. Term frequency — raw count
+3. **TF-IDF** — weighted frequency
+
+**TF-IDF** assigns high weight to terms frequent in a document but rare across the corpus:
+```
+w_{t,d} = tf_{t,d} × log(N / (df_t + 1))
+```
+where N = total documents, df_t = documents containing term t.
+
+**Cosine similarity** measures the angle between document vectors (normalizes for document length):
+```
+cosine(dⱼ, dₖ) = (dⱼ · dₖ) / (|dⱼ| |dₖ|)
+```
+
+**Limitations of BoW:** doesn't handle synonyms (treated as different words), polysemy (one word, multiple meanings), or word order. Resulting vectors are sparse.
+
+### Word Embeddings
+
+Dense vector representations that capture semantic relationships. Words used in similar contexts get similar vectors. Gender, comparative, and other linguistic relationships appear geometrically: `king − man + woman ≈ queen`.
+
+Embeddings can encode biases present in the training corpus — debiasing mechanisms exist.
+
+### Document Classification with Naive Bayes
+
+Naive Bayes assumes all features (words) are conditionally independent given the class:
+
+```
+P(y=yⱼ | x=xᵢ) ∝ P(y=yⱼ) · ∏ₖ P(xₖ=xₖᵢ | y=yⱼ)
+```
+
+The prior P(y=yⱼ) is the relative class frequency in training data. Despite the independence assumption being usually wrong, Naive Bayes is competitive with more sophisticated methods.
+
+---
+
+## Semantic Networks
+
+Semantic networks represent knowledge as directed graphs — concepts as nodes, relations as edges. Inference propagates through the graph via inheritance.
+
+**Arc types:**
+- `InstanceOf` — individual is an instance of a class
+- `SubclassOf` — one class is a subclass of another
+- `PartOf` — part-whole relationships
+- Descriptive arcs — domain-specific properties and relations
+
+**Inference mechanisms:**
+1. **Property inheritance:** follow `InstanceOf` and `SubclassOf` arcs upward to find property values. The nearest node's value takes precedence.
+2. **Intersection search:** activate two concepts, spread activation outward, find where paths meet
+3. **Query matching:** represent the query as a graph, search for matching fragments in the knowledge base
+
+---
+
+## Semantic Web and SPARQL
+
+SPARQL queries RDF knowledge bases (like Wikidata) using a structure similar to SQL:
+
+```sparql
+SELECT ?person
+WHERE {
+  ?person a dbo:Scientist .
+  ?person dbo:birthPlace dbr:Spain .
+  FILTER (?birthYear > 1980)
+}
+ORDER BY ASC(?birthYear)
+LIMIT 10
+```
+
+Key constructs: `FILTER` for conditions, `OPTIONAL` for left-joins, `UNION` for combining queries, `GROUP BY` for aggregation.
+
+---
+
+## Ontologies
+
+An ontology is a formal representation of knowledge in a domain. Components:
+- **Classes/concepts** — types of entities
+- **Properties/roles** — relationships between entities
+- **Instances/individuals** — concrete entities
+
+### OWL (Web Ontology Language)
+
+OWL uses **open world reasoning** — absence of a fact doesn't mean it's false (unlike backward chaining's closed world assumption).
+
+Key constructors:
+
+| Constructor | Example | Meaning |
+|---|---|---|
+| AND | `Dog and Friendly` | Dogs that are friendly |
+| OR | `Dog or Cat` | Dogs and cats |
+| NOT | `not Friendly` | Non-friendly entities |
+| EXISTS | `hasPet some Dog` | Has at least one dog |
+| FOR ALL | `hasPet only Dog` | Has only dogs |
+| CARDINALITY | `hasPet exactly 1` | Has exactly one pet |
+
+Axiom types: `subclassof`, `equivalent`, `disjoint` for classes; `subpropertyof`, `equivalent` for properties; concept and role assertions for individuals.
+
+**Value partitions** enable inference by exhaustion:
+```
+Spiciness equivalent Mild or Medium or Hot
+disjoint(Mild, Medium, Hot)
+```
+If something is Spiciness but not Mild and not Medium, it must be Hot.
+
+**Primitive class hierarchies are asserted; defined class hierarchies can be inferred.**
+
+### Similarity Measures in Ontologies
+
+**Resnik similarity:** based on information content — two concepts are similar if their most specific common ancestor is specific:
+```
+sim(A, B) = max_{C ⊆ A∩B} [−log p(C)]
+```
+
+**Jaccard similarity:** ratio of shared to total instances:
+```
+sim(A, B) = |A ∩ B| / |A ∪ B|
+```
+
+**LCS-based distance:** ratio of path to LCS vs. total path length:
+```
+sim(A, B) = ∂(root, C) / (∂(root, C) + ∂(C, A) + ∂(C, B))
+```
+where C = LCS(A, B) is the most specific concept more general than both A and B.

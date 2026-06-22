@@ -1,0 +1,217 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+
+export const meta = {
+  author: 'Lubin',
+  date: '2025-07-03',
+  title: 'Probability & Statistics — Course Notes',
+  description:
+    'Notes from my Probability and Statistics course at UCM: descriptive statistics, combinatorics, probability axioms, random variables, and key distributions from Binomial to Normal.',
+}
+
+export default (props) => <ArticleLayout meta={meta} {...props} />
+
+These are my notes from the Probability and Statistics course at UCM. The course splits into two halves — descriptive statistics (summarizing data you already have) and probability theory (reasoning about uncertainty). Here's how I organized the ideas.
+
+## Describing a Single Variable
+
+A **variable** is any characteristic that varies across a population. The first distinction is type:
+
+- **Quantitative:** discrete (counts) or continuous (measurements)
+- **Qualitative:** nominal (no ordering) or ordinal (ordered categories)
+
+The appropriate visualization follows from the type: bar charts for qualitative and discrete quantitative; histograms for continuous quantitative.
+
+### Frequency Tables
+
+For ungrouped data, each observation xᵢ gets:
+- **nᵢ** — absolute frequency (how many times xᵢ appears)
+- **fᵢ = nᵢ/n** — relative frequency
+- **Nᵢ** — cumulative absolute frequency
+- **Fᵢ = Nᵢ/n** — cumulative relative frequency
+
+For grouped data (class intervals), you pick K ≈ √n intervals (or use the Sturges rule: K ≈ 1 + 3.22 log n), assign each observation to an interval, and use the **class mark** (midpoint) as the representative value.
+
+### Measures of Centre
+
+| Measure | Formula | Use case |
+|---|---|---|
+| Arithmetic mean | x̄ = (1/n) Σ nᵢxᵢ | General purpose |
+| Weighted mean | x̄ₚ = Σ wᵢxᵢ / Σ wᵢ | Non-uniform importance |
+| Geometric mean | x̄G = (∏ xᵢⁿⁱ)^(1/n) | Consecutive growth rates |
+| Harmonic mean | x̄A = n / Σ (nᵢ/xᵢ) | Fixed-interval problems |
+| Median | Middle value after sorting | Robust to outliers |
+| Mode | Most frequent value | Categorical data |
+
+For grouped data in intervals, the median is computed by interpolation:
+
+```
+Me = (n/2 − Nᵢ₋₁) · Lᵢ / (Nᵢ − Nᵢ₋₁) + lᵢ₋₁
+```
+
+### Measures of Dispersion
+
+**Variance** is the average squared deviation from the mean:
+
+```
+V² = (1/n) Σ nᵢ(xᵢ − x̄)²
+```
+
+The **quasi-variance** S² = (n/(n−1)) · V² is the corrected estimator for population variance — you use this when the sample is a subset of a larger population.
+
+The **interquartile range** IQR = Q₃ − Q₁ captures the spread of the central 50% of data. It's more robust than variance because it ignores the tails entirely.
+
+**Box plots** use Q₁, Me, Q₃, and whiskers extending to the most extreme values within Q₁ − 1.5·IQR and Q₃ + 1.5·IQR. Points beyond those limits are outliers.
+
+### Shape: Skewness and Kurtosis
+
+When the mean, median, and mode coincide, the distribution is symmetric. When they diverge:
+- Mo < Me < x̄ → right-skewed (positive skew, long tail to the right)
+- x̄ < Me < Mo → left-skewed (negative skew)
+
+The **Pearson skewness coefficient** Aₚ = (x̄ − Mo) / V quantifies this. The **Fisher skewness** uses the third central moment m₃; the **Bowley coefficient** uses quartiles.
+
+**Kurtosis** measures peakedness relative to the Normal distribution. The relative kurtosis coefficient Ap² = m₄/S⁴ − 3:
+- Ap² > 0 → leptokurtic (sharper peak, heavier tails)
+- Ap² < 0 → platykurtic (flatter peak, lighter tails)
+
+## Describing Two Variables
+
+A **double-entry frequency table** records nᵢⱼ — the count of individuals with X = xᵢ and Y = yⱼ simultaneously. Marginal frequencies sum across rows or columns.
+
+**Covariance** measures linear association:
+
+```
+Cov = (1/n) Σᵢ (xᵢ − x̄)(yᵢ − ȳ) = (1/n) Σᵢ xᵢyᵢ − x̄ȳ
+```
+
+Positive covariance → direct relationship; negative → inverse; near zero → no linear relationship (though non-linear relationships may still exist).
+
+The **Pearson correlation coefficient** r = Cov / (Vₓ · Vᵧ) is dimensionless and lives in [−1, 1]. A value of ±1 indicates an exact linear relationship.
+
+### Linear Regression
+
+The model Y = β₀ + β₁X is fit by minimizing the sum of squared residuals (OLS). The estimates are:
+
+```
+β̂₁ = Cov / Vₓ²
+β̂₀ = ȳ − β̂₁x̄
+```
+
+The **residual** for each observation is eᵢ = yᵢ − ŷᵢ.
+
+## Combinatorics
+
+Three fundamental counting objects:
+
+| Type | Order? | Repetition? | Formula |
+|---|---|---|---|
+| Permutations | Yes | No | n! |
+| Permutations with rep. | Yes | Yes (within counts) | n! / (n₁! · n₂! · ... · nₖ!) |
+| Variations without rep. | Yes | No | n! / (n−r)! |
+| Variations with rep. | Yes | Yes | nʳ |
+| Combinations | No | No | n! / (r! · (n−r)!) |
+
+## Probability
+
+### Axioms
+
+The Kolmogorov definition: probability is any function P satisfying:
+1. P(A) ≥ 0 for every event A
+2. P(E) = 1 (E = sample space)
+3. P(⋃ Aᵢ) = Σ P(Aᵢ) for pairwise disjoint events
+
+The Laplace definition P(A) = |A| / |E| is the special case of equally likely outcomes.
+
+### Conditional Probability
+
+P(A|B) = P(A ∩ B) / P(B)
+
+Two events are **independent** when P(A|B) = P(A) — the occurrence of B gives no information about A. Don't confuse independence with incompatibility: incompatible events (A ∩ B = ∅) are almost never independent (unless one has probability zero).
+
+### Total Probability and Bayes' Theorem
+
+Given a partition A₁, ..., Aₙ of the sample space:
+
+```
+P(S) = Σᵢ P(S|Aᵢ) · P(Aᵢ)
+```
+
+Bayes' theorem inverts this — it computes the probability of a cause given an observed effect:
+
+```
+P(Aᵢ|B) = P(B|Aᵢ) · P(Aᵢ) / Σⱼ P(B|Aⱼ) · P(Aⱼ)
+```
+
+This is sometimes called the "a posteriori probability" — you update your belief in the cause after observing the consequence.
+
+## Discrete Random Variables
+
+A random variable X assigns a real number to each outcome in the sample space. For discrete variables:
+
+- The **mass function** p(x) gives P(X = x) for each possible value
+- The **distribution function** F(x) = P(X ≤ x) is monotone, right-continuous, with limits 0 and 1
+
+**Expectation:** E[X] = Σ xᵢ p(xᵢ)
+**Variance:** V[X] = E[X²] − (E[X])²
+
+### Key Discrete Distributions
+
+**Bernoulli — Be(p):** a single trial, success probability p.
+- E[X] = p, Var[X] = p(1−p)
+
+**Binomial — B(n, p):** number of successes in n independent identical Bernoulli trials.
+```
+P(X=x) = C(n,x) · pˣ · (1−p)^(n−x)
+```
+- E[X] = np, Var[X] = np(1−p)
+
+**Geometric — Ge(p):** number of trials until the first success.
+```
+P(X=x) = p(1−p)^(x−1)
+```
+- E[X] = 1/p, Var[X] = (1−p)/p²
+
+**Poisson — Po(λ):** count of events per unit time/space, average rate λ.
+```
+P(X=x) = e^(−λ) · λˣ / x!
+```
+- E[X] = λ, Var[X] = λ
+
+When n ≥ 30 and p ≤ 0.1, B(n, p) can be approximated by Poisson with λ = np.
+
+## Continuous Random Variables
+
+For continuous variables, probabilities are computed as areas under the density function f(x):
+
+```
+P(a < X < b) = ∫ₐᵇ f(x) dx
+```
+
+The probability at any single point is 0, so P(X = x) = 0 for all x.
+
+**Uniform — U(a, b):** constant density over (a, b).
+- E[X] = (a + b) / 2, V[X] = (b − a)² / 12
+
+**Exponential — Exp(λ):** time until an event; used in reliability modeling.
+```
+f(x) = λ e^(−λx) for x > 0
+```
+- E[X] = 1/λ, Var[X] = 1/λ²
+
+**Normal — N(μ, σ²):** the bell curve.
+```
+f(x) = (1 / √(2πσ)) · exp(−(x−μ)² / (2σ²))
+```
+- E[X] = μ (also the mode and median), V[X] = σ²
+
+To compute probabilities, standardize: Z = (X − μ) / σ ~ N(0, 1), then look up in a table.
+
+### Approximation Summary for B(n, p)
+
+| Condition | Use |
+|---|---|
+| n ≥ 30, p ≤ 0.1 | Poisson with λ = np |
+| n ≥ 30, 0.1 < p < 0.9 | Normal N(np, np(1−p)) |
+| p ≥ 0.9 | Count failures, apply Poisson |
+
+When approximating a discrete distribution with a continuous one, apply a **continuity correction**: P(X ≤ x) becomes P(X ≤ x + 0.5).

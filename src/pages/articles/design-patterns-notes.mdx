@@ -1,0 +1,331 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+
+export const meta = {
+  author: 'Lubin',
+  date: '2025-08-07',
+  title: 'Design Patterns in Software Engineering — Course Notes',
+  description:
+    'Notes from my Software Engineering II course at UCM: MVC, creational patterns (Factory, Builder, Singleton), structural patterns (Decorator, Adapter, Proxy), and behavioral patterns (Observer, Strategy, Command).',
+}
+
+export default (props) => <ArticleLayout meta={meta} {...props} />
+
+These are my notes from the Software Engineering II course at UCM. The course introduced design patterns as reusable solutions to recurring design problems. I found them surprisingly concrete once I stopped treating them as abstract diagrams and started seeing them as decisions about *who knows what*.
+
+## MVC: The Foundation
+
+Before patterns proper, the course introduced the **Model-View-Controller** architectural pattern as a framing device.
+
+- **Model:** holds data and business logic; responsible for data access
+- **View:** presents model data; holds a reference to its controller
+- **Controller:** handles events from the view, calls the appropriate model operations
+
+The key insight is that modifications to the domain (adding fields or methods to the model) only touch the model and its interfaces — views don't need to change. And changes to views only affect presentation, not the underlying data processing.
+
+The downside: it requires more upfront investment in design, and is costly to implement in non-object-oriented languages.
+
+## Pattern Categories
+
+The Gang of Four classification:
+
+- **Creational:** object creation — who builds what
+- **Structural:** class composition — how things plug together
+- **Behavioral:** object communication — who tells who to do what
+
+---
+
+## Creational Patterns
+
+### Factory Method
+
+Defines an interface for creating an object, but lets subclasses decide which class to instantiate. The creator provides a `factory()` method; subclasses override it.
+
+```java
+public abstract class Creator {
+    public Product operation() {
+        return factory();
+    }
+    protected abstract Product factory();
+}
+
+public class ConcreteCreator extends Creator {
+    protected Product factory() {
+        return new ConcreteProduct();
+    }
+}
+```
+
+Use when a class can't anticipate the type of objects it needs to create, or when creation should be delegated to subclasses.
+
+*Single Responsibility:* creation code lives in one place. *Open/Closed:* new product types don't require touching existing creators.
+
+### Abstract Factory
+
+Provides an interface for creating **families** of related objects. The factory itself is an object (not just a method), parameterized differently for each product family.
+
+```java
+public abstract class CarFactory {
+    abstract Car createCar();
+    abstract Motor createMotor();
+    abstract Chassis createChassis();
+}
+
+public class FordCarFactory extends CarFactory {
+    Car createCar()     { return new FordCar(); }
+    Motor createMotor() { return new FordMotor(); }
+    Chassis createChassis() { return new FordChassis(); }
+}
+```
+
+Think "factory of factories." The client calls `makeCar(factory)` without caring whether the factory is Ford or Toyota.
+
+**Key difference from Factory Method:** Factory creates objects of one class via subclassing; Abstract Factory creates families of related objects via composition.
+
+### Builder
+
+Separates the *construction* of a complex object from its *representation*. Useful when an object has many optional fields or when the same construction process should produce different representations.
+
+```java
+Person person = new PersonBuilder()
+    .setName("John")
+    .setAge(30)
+    .setAddress("123 Main St.")
+    .build();
+```
+
+The builder accumulates configuration and produces the object at the end. The constructor stays private — you can't create a partially-initialized object by accident.
+
+### Prototype
+
+Creates new objects by cloning existing ones. Each subclass implements a `clone()` method.
+
+```java
+public class Visa implements PrototypeCard {
+    public PrototypeCard clone() throws CloneNotSupportedException {
+        return (Visa) super.clone();
+    }
+}
+```
+
+Useful when specifying instances at runtime, or when reducing the number of classes.
+
+### Singleton
+
+Restricts a class to exactly one instance and provides a global access point to it.
+
+```java
+public class Singleton {
+    private static Singleton instance;
+    private Singleton() {}
+
+    public static Singleton getInstance() {
+        if (instance == null) {
+            instance = new Singleton();
+        }
+        return instance;
+    }
+}
+```
+
+Violates Single Responsibility. Requires special handling in multithreaded environments. Harder to test. Use with awareness of these tradeoffs.
+
+---
+
+## Structural Patterns
+
+### Decorator
+
+Extends an object's behavior at runtime by wrapping it. Each decorator holds a reference to the wrapped component and calls it before or after adding its own behavior.
+
+```java
+abstract class Decorator extends Component {
+    protected Component component;
+    public void operation() {
+        if (component != null) component.operation();
+    }
+}
+
+class ConcreteDecoratorA extends Decorator {
+    public void operation() {
+        super.operation();
+        System.out.println("ConcreteDecoratorA.Operation()");
+    }
+}
+```
+
+This forms a linked list: `d2.setComponent(d1); d1.setComponent(c)` — calling `d2.operation()` chains through d1 and then c. More flexible than inheritance because behaviors can be combined at runtime and removed independently.
+
+### Adapter
+
+Converts one interface into another. A class that expects `IAdaptador` can work with a `CajaEuros` (which speaks euros) through an adapter that does the conversion:
+
+```java
+class Adaptador implements IAdaptador {
+    CajaEuros cajaEuros = new CajaEuros();
+
+    public void withdrawPesetas(double pesetas) {
+        cajaEuros.withdrawEuros(pesetas / 166.386);
+    }
+}
+```
+
+The conversion logic lives in one place; the client code and the `CajaEuros` class remain untouched.
+
+### Facade
+
+Provides a simple entry point to a complex subsystem. Clients call `facade.startServer()` instead of knowing about `readSystemConfigFile()`, `init()`, and `initializeContext()`.
+
+The facade doesn't prevent clients from accessing the subsystem directly — it just makes the common case simpler. The risk is that the facade accumulates too much and becomes tightly coupled to many classes.
+
+### Composite
+
+Composes objects into tree structures for part-whole hierarchies. Clients treat individual objects and composites uniformly — both implement the same `Component` interface.
+
+```java
+abstract class Component {
+    abstract public void add(Component c);
+    abstract public void remove(Component c);
+    abstract public void show(int depth);
+}
+```
+
+`Composite` holds a list of children and delegates `show()` to each. `Leaf` has no children. The client calls `show()` on the root without caring whether it's a leaf or a subtree.
+
+### Proxy
+
+An intermediary that controls access to an object. The classic use case is **lazy initialization** — don't load an expensive resource until it's actually needed:
+
+```java
+public class ProxyImage implements Image {
+    private RealImage realImage;
+    private String fileName;
+
+    public void display() {
+        if (realImage == null) {
+            realImage = new RealImage(fileName); // load only on first access
+        }
+        realImage.display();
+    }
+}
+```
+
+Also used for access control, logging, and caching. The client code doesn't change — it still calls `display()` on an `Image`.
+
+### Bridge
+
+Separates an abstraction from its implementation so both can vary independently. Instead of `RedCircle`, `BlueCircle`, `RedSquare`, `BlueSquare` — separate `Shape` and `Color` into independent hierarchies connected by composition:
+
+```
+Remote (Abstraction) ◇──────> Device (Implementor interface)
+    └── AdvancedRemote              ├── Radio
+                                   └── TV
+```
+
+`Remote` holds a reference to a `Device`. Changing which device a remote controls doesn't require a new Remote subclass.
+
+### Flyweight
+
+Reduces memory when many objects share identical data. The factory stores created objects in a map and returns the same instance for duplicate keys:
+
+```java
+public class BrushFactory {
+    private static final HashMap<String, Brush> brushMap = new HashMap<>();
+
+    public static Brush getThickBrush(String color) {
+        String key = color + "-THICK";
+        return brushMap.computeIfAbsent(key, k -> {
+            Brush b = new ThickBrush();
+            b.setColor(color);
+            return b;
+        });
+    }
+}
+```
+
+**Intrinsic state** (the brush size) is shared and lives inside the flyweight. **Extrinsic state** (the color) is supplied by the client at call time.
+
+---
+
+## Behavioral Patterns
+
+### Command
+
+Wraps an operation in an object. The invoker doesn't need to know the command's content or its receiver — it just calls `execute()`.
+
+```java
+public class TaskManager {
+    public void execute(TaskProduct task, Product p) {
+        task.execute(p);
+    }
+}
+```
+
+A `SuperTask` groups multiple commands and runs them all. This makes it easy to queue operations, support undo/redo, or log actions.
+
+### Observer
+
+Defines a subscription mechanism. When the subject's state changes, all registered observers are notified automatically:
+
+```java
+public class Subject {
+    private ArrayList<Observer> observers = new ArrayList<>();
+
+    public void attach(Observer o) { observers.add(o); }
+
+    public void increment() {
+        value++;
+        for (Observer o : observers) o.update(value);
+    }
+}
+```
+
+New observer types can be added without touching `Subject`. The downside: observers are notified in arbitrary order.
+
+### Strategy
+
+Encapsulates a family of algorithms and makes them interchangeable. The context holds a reference to a strategy and delegates the behavior to it:
+
+```java
+public class Context {
+    private Strategy strategy;
+    public Context(Strategy s) { this.strategy = s; }
+    public void execute() { strategy.execute(); }
+}
+```
+
+Swap strategies at runtime without changing the context. Avoids large conditional blocks switching between variants of the same algorithm.
+
+### Iterator
+
+Provides a way to traverse a collection without exposing its internal structure. Java's `for-each` loop relies on this pattern — `Collection` exposes an `iterator()` method returning an object with `hasNext()` and `next()`.
+
+The traversal algorithm lives in the iterator, not the collection. This means you can have multiple active iterators on the same collection simultaneously, each with its own position.
+
+### State
+
+Allows an object to change behavior when its internal state changes:
+
+```java
+public class TrafficLight {
+    State red, yellow, green;
+    State state;
+
+    public void changeState() {
+        state.handleRequest(); // delegates to the current state
+    }
+}
+```
+
+Each state class implements `handleRequest()` and transitions the context to the next state. Replaces large conditionals with polymorphism. The number of classes grows, but each class is small and focused.
+
+### Mediator
+
+Manages communication between a set of objects. Instead of each object knowing about every other (an n×n dependency graph), all communicate through the mediator (an n×1 graph).
+
+The mediator implements a producer-consumer scheme: producers store data via `storeMessage()`, consumers retrieve it via `retrieveMessage()`. Coordination (blocking when empty/full) lives in the mediator using `synchronized` and `notifyAll()`.
+
+### Interpreter
+
+Given a language, defines a representation for its grammar and an interpreter that uses that representation to interpret sentences.
+
+Use when the grammar is simple and efficiency is not critical. Each grammar rule becomes a class; complex grammars become difficult to maintain.

@@ -1,0 +1,423 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+
+export const meta = {
+  author: 'Lubin',
+  date: '2025-07-21',
+  title: 'Concurrent Programming — Course Notes',
+  description:
+    'Notes from my Concurrent Programming course at UCM: process synchronization, atomic actions, locks, barriers, semaphores, monitors, and message passing — with code examples throughout.',
+}
+
+export default (props) => <ArticleLayout meta={meta} {...props} />
+
+These are my notes from the Concurrent Programming course at UCM. The course starts from the theory of concurrent processes and works up to practical synchronization primitives: locks, barriers, semaphores, monitors, and message passing. Here's how I organized the main ideas.
+
+## What Is Concurrent Programming?
+
+**Concurrent programming** is a model where 2 or more processes work together on a shared task. Processes can communicate in two ways:
+
+- **Shared memory:** one process writes a variable that another reads
+- **Message passing:** one process sends a message that another receives
+
+Synchronization ensures correct behavior under concurrency:
+
+- **Mutual exclusion:** critical sections never execute simultaneously
+- **Conditional synchronization:** a process waits until some condition is met
+
+The goal is a **deterministic program** — the same output for the same input regardless of execution order. Over-synchronization defeats the purpose by making the program sequential.
+
+The four serious errors in concurrent programs:
+1. A process never starts
+2. A data race (interleaving produces inconsistent state)
+3. A process never terminates
+4. Livelock or deadlock
+
+## Independence and Data Races
+
+Two processes A and B are **independent** when:
+
+```
+W(A) ∩ (W(B) ∪ R(B)) = ∅  ∧  W(B) ∩ (W(A) ∪ R(A)) = ∅
+```
+
+This is a sufficient (not necessary) condition. If W(A) shares any variable with R(B) or W(B), the processes are not independent and concurrent execution may produce different results depending on scheduling.
+
+A concrete example of a data race:
+
+```
+A: x = y + 2    B: y = x + 3    (starting from x=0, y=0)
+```
+
+Depending on interleaving:
+- AB: x=2, y=5
+- BA: x=5, y=3
+- Interleaved: x=2, y=3
+
+This is why synchronization matters.
+
+## Atomic Actions and AWAIT
+
+An assignment `x = e` is **atomic** if it satisfies the at-most-once property: either e contains at most one critical reference and x is not read by others, or e contains no critical references.
+
+When atomicity is needed but not guaranteed, wrap in angle brackets: `< e >`.
+
+The **AWAIT** statement combines mutual exclusion with conditional synchronization:
+
+```
+< await(B); S; >
+```
+
+`S` executes only after `B` becomes true, and the whole block executes atomically. If B satisfies at-most-once, `< await(B); >` is equivalent to `while(!B)`.
+
+## Fairness and Liveness
+
+Most liveness guarantees depend on **fairness** — all processes eventually get to execute.
+
+- **Unconditional fairness:** every unconditionally eligible action eventually runs
+- **Weak fairness** (round-robin, time-slicing): every conditional action that becomes and *stays* eligible eventually runs
+- **Strong fairness** (theoretical): every conditional action that becomes eligible *infinitely often* eventually runs — even if B oscillates
+
+In practice, weak fairness (e.g., round-robin schedulers) is the standard.
+
+## Parallelization Patterns
+
+### Matrix Multiplication
+
+The classic embarrassingly parallel example. Three approaches:
+
+**By rows:** each process computes one row of C independently — no shared writes.
+
+**By columns:** similarly, each process computes one column.
+
+**Fully parallel:** one process per element C[i,j]:
+
+```c
+CO [i = 0 to n-1, j = 0 to n-1] {
+  C[i,j] = 0;
+  for (k = 0 to n-1) C[i,j] = C[i,j] + a[i,k] * b[k,j];
+}
+```
+
+To verify safety, check the independence condition for each pair of processes.
+
+### Producer/Consumer with AWAIT
+
+A single producer and consumer sharing a buffer:
+
+```
+process Producer {
+  while (p < n) {
+    <await (p == c);>  // wait for buffer empty
+    buf = a[p];
+    p = p + 1;
+  }
+}
+process Consumer {
+  while (c < n) {
+    <await (p > c);>   // wait for buffer full
+    b[c] = buf;
+    c = c + 1;
+  }
+}
+```
+
+The invariant PC: c ≤ p ≤ c+1 ensures the buffer is used safely.
+
+## Locks and the Critical Section Problem
+
+A critical section problem requires four properties:
+
+1. **Mutual exclusion** (safety) — only one process in the CS at a time
+2. **Absence of blocking** — a process in the CS will eventually leave
+3. **No unnecessary delay** — no process waits when the CS is free
+4. **Eventual entry** (liveness) — every process that wants in eventually gets in
+
+### Test-and-Set (TS)
+
+```c
+bool TS(bool &lock) {
+  bool initial = lock;
+  lock = true;
+  return initial;
+}
+// Entry: while(TS(lock)); — Exit: lock = false;
+```
+
+TS is atomic and avoids interleaving. However, many processes spinning on TS create **memory contention**.
+
+### Test-and-Test-and-Set
+
+The optimization: spin cheaply on a local read, only attempt TS when the lock looks free.
+
+```c
+while (lock) skip;          // safe read
+while (TS(lock)) {          // atomic acquire
+  while (lock) skip;        // retry on failure
+}
+```
+
+### Tie-Breaker Algorithm
+
+For two processes, uses a `last` variable to break ties:
+
+```c
+bool in1 = false, in2 = false;
+int last = 1;
+
+process CS1 {
+  while (true) {
+    last = 1; in1 = true;
+    <await (!in2 or last == 2);>
+    // critical section
+    in1 = false;
+  }
+}
+```
+
+Generalizes to n processes through n stages — `in[i]` tracks each process's current stage, `last[j]` records who last entered stage j.
+
+### Ticket Algorithm
+
+Each process atomically draws a ticket number, then waits for its turn:
+
+```c
+int number = 1, next = 1, turn[1:n] = {[n] 0};
+
+process CS[i = 1 to n] {
+  while (true) {
+    <turn[i] = number; number++;>
+    <await (turn[i] == next);>
+    // critical section
+    <next++;>
+  }
+}
+```
+
+**Fetch-and-add** (FA) is the hardware primitive that makes the ticket draw atomic without an explicit lock.
+
+## Barriers
+
+Barriers let processes wait for each other before proceeding to the next phase.
+
+### Shared Counter
+
+```c
+int count = 0;
+process Worker[i = 1 to n] {
+  // do work
+  <count++;>
+  <await (count == n);>
+  // proceed
+}
+```
+
+Problem: count must reset between iterations, requiring coordination. A solution uses two alternating counters.
+
+### Flags and Coordinators
+
+Distribute the counter: each process sets `arrive[i] = 1`. A coordinator checks all arrivals then sets `continue[i] = 1` for each worker.
+
+For better scalability, organize workers as a **tree**: interior nodes wait for children to arrive, then signal upward; the root signals back down. This reduces memory contention.
+
+### Butterfly Barrier
+
+For n processes (n a power of 2), organize into log₂n stages. In stage s, process i synchronizes with the process at distance 2^(s-1):
+
+```c
+for (s = 1 to numStages) {
+  arrive[i] = arrive[i] + 1;
+  while (arrive[j] < arrive[i]) skip;
+}
+```
+
+When n is not a power of 2, use the **dissemination** pattern — processes synchronize modulo n.
+
+## Semaphores
+
+A semaphore is a non-negative integer with two atomic operations:
+
+```
+P(s): <await (s > 0) s--;>   // "acquire" — blocks if s == 0
+V(s): <s++;>                  // "release" / signal
+```
+
+### Mutual Exclusion
+
+```c
+sem mutex = 1;
+process CS[i = 1 to n] {
+  while (true) {
+    P(mutex);
+    // critical section
+    V(mutex);
+  }
+}
+```
+
+### Producers and Consumers with Semaphores
+
+```c
+typeT buf[n];
+int front = 0, rear = 0;
+sem empty = n, full = 0;
+sem mutexD = 1, mutexF = 1;
+
+process Producer[i = 1 to N] {
+  while (true) {
+    P(empty);
+    P(mutexD);
+    buf[rear] = data; rear = (rear+1) % n;
+    V(mutexD);
+    V(full);
+  }
+}
+process Consumer[j = 1 to N] {
+  while (true) {
+    P(full);
+    P(mutexF);
+    result = buf[front]; front = (front+1) % n;
+    V(mutexF);
+    V(empty);
+  }
+}
+```
+
+Two separate mutex semaphores (`mutexD`, `mutexF`) allow producers and consumers to operate independently on different ends of the buffer.
+
+### Readers/Writers Problem
+
+Multiple readers can share the database simultaneously; writers need exclusive access.
+
+**Fair solution using baton passing** — the process releasing the resource passes the lock (`e`) directly to the next eligible process rather than releasing it:
+
+```c
+int nr = 0, nw = 0;   // active readers/writers
+sem e = 1;             // entry semaphore
+int dr = 0, dw = 0;   // waiting readers/writers
+sem r = 0, w = 0;     // delay semaphores
+
+// On writer exit:
+P(e);
+nw--;
+if (dw > 0) { dw--; V(w); }      // wake a writer (baton)
+else if (dr > 0) { dr--; V(r); }  // wake readers (baton)
+else V(e);
+```
+
+Baton passing ensures fairness: without it, continuous readers could starve writers indefinitely.
+
+### Dining Philosophers
+
+Five philosophers, five forks, each needs two adjacent forks to eat. The trick to avoid deadlock: one philosopher picks up the right fork first (instead of left), breaking the circular dependency:
+
+```c
+process Philosopher[i = 0 to 3] {
+  while (true) {
+    P(fork[i]); P(fork[i+1]);
+    eat;
+    V(fork[i]); V(fork[i+1]);
+    think;
+  }
+}
+process Philosopher[4] {
+  while (true) {
+    P(fork[0]); P(fork[4]); // reversed order
+    eat;
+    V(fork[0]); V(fork[4]);
+    think;
+  }
+}
+```
+
+## Monitors
+
+A monitor encapsulates shared variables with procedures that execute under **mutual exclusion** automatically — no entry/exit protocols needed.
+
+```
+monitor mname {
+  // permanent variable declarations
+  // initialization
+  // procedures
+}
+```
+
+**Condition variables** handle ordering:
+- `wait(cv)` — suspends the calling process at cv's queue
+- `signal(cv)` — wakes the head of cv's queue (no effect if empty)
+- `empty(cv)` — true if no processes are waiting
+
+Always use `while` (not `if`) to recheck a condition after being woken:
+
+```c
+procedure deposit(typeT data) {
+  while (count == n) wait(not_full);
+  buf[rear] = data; rear = (rear+1) % n; count++;
+  signal(not_empty);
+}
+```
+
+Multiple producers could wake up simultaneously; `while` ensures each one re-verifies before proceeding.
+
+### Shortest Job Next with Priority Wait
+
+A priority wait `wait(cv, rank)` orders the queue by rank ascending:
+
+```c
+monitor Shortest_Job_Next {
+  bool free = true;
+  cond turn;
+
+  procedure request(int time) {
+    if (free) free = false;
+    else wait(turn, time);
+  }
+
+  procedure release() {
+    if (empty(turn)) free = true;
+    else signal(turn);
+  }
+}
+```
+
+`signal(turn)` wakes the process with the smallest `time` — shortest remaining job gets the resource next.
+
+### Sleeping Barber (Rendez-vous)
+
+The barber waits for customers; customers wait for the barber. This **rendez-vous** pattern has bidirectional signaling: barbers wake customers and customers wake barbers. The monitor coordinates entry, seating, haircut, and exit through four procedures and four condition variables.
+
+## Message Passing
+
+Instead of shared memory, processes communicate through **channels**.
+
+### Filters
+
+A filter receives messages on input channels and sends on output channels. The classic example is **Merge**: receiving from two sorted streams and producing one sorted output.
+
+### Simulating Monitors with Message Passing
+
+A monitor's global variables become local to a **Server** process. Clients send `request` messages and wait for `reply` messages:
+
+```c
+chan request(int clientID, opType op, typeP params);
+chan reply[n](typeR result);
+
+process Server {
+  while (true) {
+    receive request(clientID, op, params);
+    // execute operation
+    send reply[clientID](result);
+  }
+}
+```
+
+For operations that need to delay (like resource allocation), the server queues unfulfilled requests and responds when conditions are satisfied.
+
+### Peer-to-Peer Patterns
+
+For finding the global maximum/minimum among N processes:
+
+- **Centralized:** process 0 acts as coordinator, collects from all, broadcasts back
+- **Symmetric:** every process sends its value to every other process
+- **Ring:** values propagate around a ring in two passes — first pass accumulates the global result, second pass distributes it
+
+In practice, on a single CPU only one thread executes at a time — the scheduler (FIFO, round-robin) creates the *illusion* of concurrency.
